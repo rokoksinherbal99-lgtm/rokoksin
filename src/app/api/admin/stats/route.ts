@@ -3,9 +3,12 @@ import { db } from "@/db";
 import { products, orders } from "@/db/schema";
 import { count, sum, eq, and, lt, desc } from "drizzle-orm";
 import { checkAuth, unauthorized } from "@/lib/admin-auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function GET(req: Request) {
   if (!await checkAuth(req)) return unauthorized();
+  const rl = await checkRateLimit(req, 30);
+  if (rl) return rl;
   try {
     const [productCount] = await db.select({ value: count() }).from(products);
 

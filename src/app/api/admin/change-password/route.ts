@@ -41,6 +41,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Password baru minimal 8 karakter" }, { status: 400 });
     }
 
+    if (newPassword.length > 128) {
+      return NextResponse.json({ error: "Password baru maksimal 128 karakter" }, { status: 400 });
+    }
+
     const dbRow = await db.select().from(settings).where(eq(settings.key, "admin_password_hash")).limit(1);
     const dbHash = dbRow.length > 0 ? dbRow[0].value : null;
 

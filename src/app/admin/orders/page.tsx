@@ -40,6 +40,7 @@ export default function AdminOrdersPage() {
   const [custName, setCustName] = useState("");
   const [custPhone, setCustPhone] = useState("");
   const [saving, setSaving] = useState(false);
+  const [bulkLoading, setBulkLoading] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const { toast } = useToast();
 
@@ -84,8 +85,9 @@ export default function AdminOrdersPage() {
   };
 
   const bulkUpdateStatus = async (newStatus: string) => {
-    if (selected.size === 0) return;
+    if (selected.size === 0 || bulkLoading) return;
     if (newStatus === "cancelled" && !confirm(`Batalkan ${selected.size} pesanan terpilih?`)) return;
+    setBulkLoading(true);
     const ids = Array.from(selected);
     const results = await Promise.allSettled(
       ids.map((id) =>
@@ -101,11 +103,13 @@ export default function AdminOrdersPage() {
     else toast(`${ids.length} pesanan berhasil diubah`);
     setSelected(new Set());
     fetchOrders();
+    setBulkLoading(false);
   };
 
   const bulkDelete = async () => {
-    if (selected.size === 0) return;
+    if (selected.size === 0 || bulkLoading) return;
     if (!confirm(`Hapus ${selected.size} pesanan terpilih? Tindakan ini tidak bisa dibatalkan.`)) return;
+    setBulkLoading(true);
     try {
       const res = await fetch("/api/admin/orders", {
         method: "DELETE",
@@ -118,6 +122,8 @@ export default function AdminOrdersPage() {
       fetchOrders();
     } catch {
       toast("Gagal menghapus pesanan", "error");
+    } finally {
+      setBulkLoading(false);
     }
   };
 
@@ -202,14 +208,14 @@ export default function AdminOrdersPage() {
         <div className="flex items-center gap-3">
           {selected.size > 0 && (
             <>
-              <button onClick={() => bulkUpdateStatus("shipped")} className="inline-flex items-center gap-2 rounded-xl border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-100">
-                <Check className="h-4 w-4" /> Kirim ({selected.size})
+              <button onClick={() => bulkUpdateStatus("shipped")} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-100 disabled:opacity-50">
+                <Check className="h-4 w-4" /> {bulkLoading ? "Memproses..." : `Kirim (${selected.size})`}
               </button>
-              <button onClick={bulkPrint} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-600 transition hover:bg-gray-50">
+              <button onClick={bulkPrint} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 disabled:opacity-50">
                 <Printer className="h-4 w-4" /> Cetak ({selected.size})
               </button>
-              <button onClick={bulkDelete} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-100">
-                <X className="h-4 w-4" /> Hapus ({selected.size})
+              <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-50">
+                <X className="h-4 w-4" /> {bulkLoading ? "Memproses..." : `Hapus (${selected.size})`}
               </button>
             </>
           )}
@@ -317,7 +323,7 @@ export default function AdminOrdersPage() {
                   </div>
                 </div>
                 <div className="mt-4 space-y-2">
-                  {order.items.map((item) => (
+                  {order.items?.map((item) => (
                     <div key={item.id} className="flex justify-between text-sm">
                       <span className="text-gray-600">{item.name} x{item.quantity}</span>
                       <span className="font-medium">{formatPrice(item.price)}</span>

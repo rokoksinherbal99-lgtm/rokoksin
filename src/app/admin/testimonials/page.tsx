@@ -61,10 +61,12 @@ export default function AdminTestimonials() {
     try {
       const body = { ...form, productId: form.productId || null };
       if (edit) {
-        await fetch("/api/admin/testimonials", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: edit.id, ...body }) });
+        const res = await fetch("/api/admin/testimonials", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: edit.id, ...body }) });
+        if (!res.ok) throw new Error();
         toast("Testimoni diperbarui", "success");
       } else {
-        await fetch("/api/admin/testimonials", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        const res = await fetch("/api/admin/testimonials", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) throw new Error();
         toast("Testimoni ditambahkan", "success");
       }
       reset();
@@ -79,7 +81,8 @@ export default function AdminTestimonials() {
   const remove = async (id: string) => {
     if (!confirm("Hapus testimoni ini?")) return;
     try {
-      await fetch("/api/admin/testimonials", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+      const res = await fetch("/api/admin/testimonials", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+      if (!res.ok) throw new Error();
       toast("Testimoni dihapus", "success");
       fetchData();
     } catch {

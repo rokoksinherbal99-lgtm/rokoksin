@@ -114,6 +114,14 @@ export async function POST(req: NextRequest) {
     }
 
     const productIds = body.items.map((item: any) => item.id);
+    for (const item of body.items) {
+      if (!item.id || typeof item.id !== "string") {
+        return NextResponse.json({ error: "ID produk tidak valid" }, { status: 400 });
+      }
+      if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 999) {
+        return NextResponse.json({ error: "Quantity tidak valid" }, { status: 400 });
+      }
+    }
     const dbProducts = await db.select().from(products).where(inArray(products.id, productIds));
     const priceMap = new Map(dbProducts.map((p) => [p.id, p.price]));
 

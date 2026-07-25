@@ -32,6 +32,8 @@ export default function AdminProductsPage() {
       .finally(() => setLoading(false));
   };
 
+  const [bulkLoading, setBulkLoading] = useState(false);
+
   useEffect(() => { fetchProducts(); }, []);
 
   const remove = async (id: string) => {
@@ -61,10 +63,21 @@ export default function AdminProductsPage() {
   };
 
   const bulkDelete = async () => {
-    if (selected.size === 0) return;
+    if (selected.size === 0 || bulkLoading) return;
     if (!confirm(`Hapus ${selected.size} produk terpilih?`)) return;
-    for (const id of selected) await remove(id);
+    setBulkLoading(true);
+    const ids = Array.from(selected);
+    const results = await Promise.allSettled(
+      ids.map((id) =>
+        fetch(`/api/admin/products/${id}`, { method: "DELETE" }).then((r) => { if (!r.ok) throw new Error(); return r; })
+      )
+    );
+    const failed = results.filter((r) => r.status === "rejected").length;
+    if (failed > 0) toast(`${ids.length - failed} berhasil, ${failed} gagal`, failed === ids.length ? "error" : "success");
+    else toast(`${ids.length} produk berhasil dihapus`);
     setSelected(new Set());
+    fetchProducts();
+    setBulkLoading(false);
   };
 
   const toggleAll = () => {
@@ -96,8 +109,8 @@ export default function AdminProductsPage() {
         </div>
         <div className="flex items-center gap-3">
           {selected.size > 0 && (
-            <button onClick={bulkDelete} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100">
-              <Trash2 className="h-4 w-4" /> Hapus ({selected.size})
+            <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100 disabled:opacity-50">
+              <Trash2 className="h-4 w-4" /> {bulkLoading ? "Menghapus..." : `Hapus (${selected.size})`}
             </button>
           )}
           <Link href="/admin/products/new" className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-500 active:scale-[0.97]">

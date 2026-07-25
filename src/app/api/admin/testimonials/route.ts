@@ -36,7 +36,7 @@ export async function POST(req: Request) {
   if (rl) return rl;
   try {
     const body = await req.json();
-    const id = `t${Date.now()}`;
+    const id = crypto.randomUUID();
 
     const clean: Record<string, any> = {};
     for (const key of Object.keys(body)) {
