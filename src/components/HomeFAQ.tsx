@@ -4,10 +4,10 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
+  { q: "Bagaimana cara memesan produk?", a: "Pilih produk yang diinginkan, lalu klik \"Pesan via WhatsApp\" atau \"Tambah ke Keranjang\". Untuk WhatsApp, Anda langsung chat kami. Untuk keranjang, isi data diri di checkout, lalu kami hubungi untuk konfirmasi." },
   { q: "Apakah bisa kirim ke seluruh Indonesia?", a: "Tentu saja, selain mudah dalam pemesanannya, juga kami mudah dalam pengiriman karena mendukung ekspedisi ekspress yang mampu menjangkau seluruh Indonesia." },
   { q: "Apakah produknya ori?", a: "Kami hanya menyediakan produk dengan kualitas 100% original sehingga sangat terjamin. Ini karena kami adalah agen resmi produk Sin." },
   { q: "Apakah ada garansi?", a: "Tentu saja semua produk yang kami pasarkan dilengkapi dengan jaminan garansi resmi, garansi uang kembali jika produk tidak ori, tidak sampai ke lokasi, atau pun rusak." },
-  { q: "Bagaimana cara pesan nya?", a: "Cukup mudah, Anda hanya perlu menghubungi kami melalui kontak yang ada di website ini baik via telepon maupun WhatsApp, ataupun pesan melalui website ini." },
   { q: "Apa khasiat Kopi Mana Kopi?", a: "Kopi Mana Kopi adalah racikan kopi yang dipadukan dengan jahe, madu, adas, dan kapulaga dalam komposisi yang PAS. Melahirkan cita rasa yang unik untuk memenuhi kebutuhan kafein Anda sekaligus menjaga daya tahan tubuh." },
 ];
 

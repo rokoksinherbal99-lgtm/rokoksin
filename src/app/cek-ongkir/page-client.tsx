@@ -17,15 +17,33 @@ export default function CekOngkirPage() {
       </section>
 
       <section className="py-16">
-        <div className="mx-auto max-w-lg px-4">
+        <div className="mx-auto max-w-lg px-4 space-y-6">
+          <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
+            <p className="text-sm font-semibold text-emerald-800 mb-2">Cara Mengecek Ongkir:</p>
+            <ol className="space-y-2 text-sm text-emerald-700">
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white">1</span>
+                <span>Klik tombol &quot;Cek Tarif&quot; di bawah untuk ke website ekspedisi.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white">2</span>
+                <span>Masukkan kota asal: <strong>Depok</strong> dan kota tujuan Anda.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white">3</span>
+                <span>Lihat hasilnya! Gratis ongkir untuk pembelian minimal Rp100.000.</span>
+              </li>
+            </ol>
+          </div>
+
           <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-5">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 shadow-sm">
                 <MapPin className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h2 className="font-bold text-gray-900">Informasi</h2>
-                <p className="text-xs text-gray-400">Pengecekan tarif J&T &amp; Lion Express</p>
+                <h2 className="font-bold text-gray-900">Informasi Pengiriman</h2>
+                <p className="text-xs text-gray-400">Asal: Depok, Jawa Barat</p>
               </div>
             </div>
 
@@ -35,11 +53,6 @@ export default function CekOngkirPage() {
                 <p className="text-blue-600 mt-1">Abadijaya, Sukmajaya, Depok</p>
               </div>
 
-              <div className="rounded-xl bg-gray-50 px-4 py-3">
-                <p className="font-semibold text-gray-800">J&T Express</p>
-                <p className="text-xs text-gray-400 mt-0.5">Cek tarif langsung di website resmi J&T</p>
-              </div>
-
               <a
                 href="https://jet.co.id/rates"
                 target="_blank"
@@ -47,15 +60,8 @@ export default function CekOngkirPage() {
                 className="block w-full rounded-xl bg-gradient-to-r from-red-600 to-red-500 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition hover:from-red-700 hover:to-red-700 flex items-center justify-center gap-2"
               >
                 <ExternalLink className="h-5 w-5" />
-                Cek Tarif J&T
+                Cek Tarif J&T Express
               </a>
-
-              <div className="border-t border-gray-100 pt-4">
-                <div className="rounded-xl bg-gray-50 px-4 py-3">
-                  <p className="font-semibold text-gray-800">Lion Express</p>
-                  <p className="text-xs text-gray-400 mt-0.5">Cek tarif langsung di website resmi Lion Express</p>
-                </div>
-              </div>
 
               <a
                 href="https://lionelexpress.com/cek-tarif"
@@ -67,6 +73,12 @@ export default function CekOngkirPage() {
                 Cek Tarif Lion Express
               </a>
             </div>
+          </div>
+
+          <div className="text-center">
+            <p className="text-xs text-gray-400">
+              Butuh bantuan? <a href="https://wa.me/6285161835757?text=Halo!%20Saya%20ingin%20tanya%20ongkos%20kirim." target="_blank" rel="noopener noreferrer" className="font-semibold text-[#25D366] hover:underline">Tanya via WhatsApp</a>
+            </p>
           </div>
         </div>
       </section>

@@ -48,14 +48,14 @@ export default function ProductGrid({ products, categories }: { products: Produc
 
   return (
     <>
-      <div className="mt-8 flex flex-wrap items-center gap-4">
-        <div className="relative flex-1 max-w-sm">
+      <div className="mt-8 space-y-4">
+        <div className="relative max-w-sm">
           <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input value={search} onChange={(e) => handleFilterChange("search", e.target.value)} placeholder="Cari produk..." className="w-full rounded-2xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-700 placeholder-gray-400 shadow-sm transition focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
           {[{ id: "", name: "Semua", slug: "" } as Category, ...categories].map((c) => (
-            <button key={c.id} onClick={() => handleFilterChange("cat", c.id)} className={`rounded-xl px-4 py-2 text-sm font-semibold transition-all ${
+            <button key={c.id} onClick={() => handleFilterChange("cat", c.id)} className={`shrink-0 rounded-xl px-4 py-2 text-sm font-semibold transition-all ${
               catFilter === c.id
                 ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md shadow-emerald-200"
                 : "border border-gray-200 bg-white text-gray-600 shadow-sm hover:border-emerald-200 hover:text-emerald-600 hover:shadow-md"

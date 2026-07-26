@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Package, CheckCircle, Truck, Clock, XCircle, ShoppingBag } from "lucide-react";
+import { Search, Package, CheckCircle, Truck, Clock, XCircle, ShoppingBag, Copy, Check, MessageCircle } from "lucide-react";
 
 const STATUS_STEPS = [
   { key: "pending", label: "Pesanan Diterima", icon: Clock },
@@ -79,6 +79,14 @@ export default function LacakPesananPage() {
         <div className="mb-8 rounded-sm border border-red-100 bg-red-50 p-6 text-center">
           <XCircle className="mx-auto mb-2 h-10 w-10 text-red-400" />
           <p className="text-red-600">{error}</p>
+          <a
+            href="https://wa.me/6285161835757?text=Halo!%20Saya%20lupa%20ID%20pesanan%20saya.%20Bisa%20dibantu?"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-[#25D366] hover:text-[#1da851]"
+          >
+            <MessageCircle className="h-3.5 w-3.5" /> Chat WhatsApp untuk bantuan
+          </a>
         </div>
       )}
 
@@ -89,6 +97,13 @@ export default function LacakPesananPage() {
               <div>
                 <span className="text-sm text-[#A8987F]">ID Pesanan</span>
                 <p className="font-mono text-xs text-[#A8987F]">{order.id}</p>
+                <button
+                  onClick={async () => { try { await navigator.clipboard.writeText(order.id); } catch {} }}
+                  className="mt-1 inline-flex items-center gap-1 rounded-sm px-2 py-0.5 transition hover:bg-[#EDF2ED]"
+                >
+                  <Copy className="h-3 w-3 text-[#A8987F]" strokeWidth={1.5} />
+                  <span className="font-sans text-[10px] text-[#A8987F]">Salin</span>
+                </button>
               </div>
               <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${statusInfo.color}`}>
                 <statusInfo.icon className="h-3.5 w-3.5" />
@@ -188,8 +203,30 @@ export default function LacakPesananPage() {
       {!order && !error && (
         <div className="rounded-sm border-[#E0D7C5] bg-[#F0EBE0] p-10 text-center">
           <ShoppingBag className="mx-auto mb-3 h-12 w-12 text-[#C4B8A2]" strokeWidth={1.5} />
-          <p className="text-sm text-[#A8987F]">Masukkan ID pesanan untuk mulai melacak.</p>
-          <p className="mt-1 text-xs text-[#C4B8A2]">ID pesanan bisa ditemukan di halaman sukses setelah checkout.</p>
+          <p className="text-sm font-medium text-[#A8987F]">Masukkan ID pesanan untuk mulai melacak.</p>
+          <div className="mt-4 rounded-sm border border-[#D5E0D3] bg-white p-4 text-left">
+            <p className="font-sans text-xs font-semibold text-[#1A3626] mb-2">Dimana saya bisa menemukan ID pesanan?</p>
+            <ul className="space-y-1.5 font-sans text-xs text-[#5D8356]">
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 h-1 w-1 shrink-0 rounded-full bg-[#ABC1A7]" />
+                ID pesanan muncul di halaman setelah Anda selesai checkout.
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 h-1 w-1 shrink-0 rounded-full bg-[#ABC1A7]" />
+                Kami juga mengirimkannya via WhatsApp saat konfirmasi pesanan.
+              </li>
+            </ul>
+          </div>
+          <div className="mt-4">
+            <a
+              href="https://wa.me/6285161835757?text=Halo!%20Saya%20lupa%20ID%20pesanan%20saya.%20Bisa%20dibantu?"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-[#25D366] hover:text-[#1da851]"
+            >
+              Lupa ID pesanan? Chat WhatsApp
+            </a>
+          </div>
         </div>
       )}
 

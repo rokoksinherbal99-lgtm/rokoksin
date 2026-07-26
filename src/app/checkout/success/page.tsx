@@ -1,6 +1,7 @@
-import Link from "next/link";
 import { CheckCircle, Search } from "lucide-react";
 import { BankInfo } from "./bank-info";
+import { CopyOrderIdButton } from "./copy-order-id";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,20 +23,14 @@ export default async function SuccessPage({ searchParams }: Props) {
       </div>
       <h1 className="font-serif text-2xl font-bold tracking-tight text-[#2C2416]">Pesanan Berhasil!</h1>
       <p className="mt-2 font-sans text-sm text-[#A8987F]">
-        Terima kasih! Pesanan Anda telah tercatat dan akan diproses setelah pembayaran dikonfirmasi.
+        Terima kasih! Pesanan Anda telah tercatat. Langkah selanjutnya:
       </p>
-      <div className="mx-auto mt-6 inline-block rounded-sm border border-[#E0D7C5] bg-[#F0EBE0] px-6 py-3">
-        <p className="font-sans text-xs text-[#A8987F]">ID Pesanan</p>
-        <p className="font-mono text-sm font-semibold text-[#1A3626]">{orderId}</p>
-      </div>
-
+      <CopyOrderIdButton orderId={orderId} />
       <BankInfo orderId={orderId} total={total} />
-
       <div className="organic-divider mx-auto mt-4 max-w-[120px]" />
-
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link
-          href={`/lacak-pesanan`}
+          href="/lacak-pesanan"
           className="inline-flex items-center gap-2 rounded-sm border-2 border-[#2C4C3B] bg-[#FDFBF7] px-6 py-3 font-sans font-semibold text-[#2C4C3B] transition hover:bg-[#D5E0D3]"
         >
           <Search className="h-4 w-4" strokeWidth={1.5} />
@@ -47,6 +42,19 @@ export default async function SuccessPage({ searchParams }: Props) {
         >
           Lanjut Belanja
         </Link>
+      </div>
+      <div className="mt-6 rounded-sm border border-[#D5E0D3] bg-[#EDF2ED]/50 p-4 text-center">
+        <p className="font-sans text-xs text-[#5D8356]">
+          Ada pertanyaan?{" "}
+          <a
+            href={`https://wa.me/6285161835757?text=${encodeURIComponent(`Halo! Saya ingin tanya tentang pesanan ${orderId}.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#25D366] underline hover:text-[#1da851]"
+          >
+            Chat WhatsApp kami
+          </a>
+        </p>
       </div>
     </div>
   );

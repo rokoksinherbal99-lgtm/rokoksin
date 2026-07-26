@@ -4,6 +4,7 @@ import { eq, asc } from "drizzle-orm";
 import { formatPrice } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Tag, Info } from "lucide-react";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,7 @@ const productTypes: Record<string, string> = {
 
 interface CatGroup {
   category: string;
-  items: { name: string; type: string; price: number }[];
+  items: { name: string; type: string; price: number; image: string; slug: string }[];
 }
 
 export default async function PriceListPage() {
@@ -51,7 +52,7 @@ export default async function PriceListPage() {
   for (const r of rows) {
     const catName = r.categories?.name || "Lainnya";
     if (!grouped[catName]) grouped[catName] = { category: catName, items: [] };
-    grouped[catName].items.push({ name: r.products.name, type: productTypes[r.products.name] || "-", price: r.products.price });
+    grouped[catName].items.push({ name: r.products.name, type: productTypes[r.products.name] || "-", price: r.products.price, image: r.products.images, slug: r.products.slug });
   }
 
   return (
@@ -76,7 +77,7 @@ export default async function PriceListPage() {
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="bg-gradient-to-r from-emerald-50 to-white">
-                      <th className="px-5 py-3.5 font-semibold text-gray-700">Produk</th>
+                      <th className="px-5 py-3.5 font-semibold text-gray-700" colSpan={2}>Produk</th>
                       <th className="px-5 py-3.5 font-semibold text-gray-700">Tipe</th>
                       <th className="px-5 py-3.5 font-semibold text-gray-700 text-right">Harga</th>
                     </tr>
@@ -84,7 +85,14 @@ export default async function PriceListPage() {
                   <tbody>
                     {group.items.map((item, i) => (
                       <tr key={i} className="border-t border-gray-50 transition hover:bg-gray-50/50">
-                        <td className="px-5 py-4 font-medium text-gray-800">{item.name}</td>
+                        <td className="px-5 py-3 w-12">
+                          <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-gray-100">
+                            <Image src={item.image} alt={item.name} fill unoptimized sizes="40px" className="object-cover" />
+                          </div>
+                        </td>
+                        <td className="py-4 font-medium text-gray-800">
+                          <a href={`/products/${item.slug}`} className="transition hover:text-emerald-600 hover:underline">{item.name}</a>
+                        </td>
                         <td className="px-5 py-4">
                           {item.type !== "-" ? (
                             <span className={`inline-block rounded-lg px-2.5 py-1 text-xs font-semibold ${typeStyles[item.type] || "bg-gray-100 text-gray-600"}`}>{item.type}</span>
@@ -101,8 +109,16 @@ export default async function PriceListPage() {
             </div>
           ))}
 
-          <div className="rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 p-6 flex items-center gap-3">
-            <Info className="h-5 w-5 text-emerald-500 shrink-0" />
+          <div className="rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <Info className="h-5 w-5 text-emerald-500 shrink-0" />
+              <p className="text-sm font-semibold text-gray-700">Keterangan Tipe Produk</p>
+            </div>
+            <div className="flex flex-wrap gap-3 mb-4">
+              <span className="inline-block rounded-lg bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">SKT = Sigaret Kretek Tanpa Filter</span>
+              <span className="inline-block rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700">SKM = Sigaret Kretek Mesin</span>
+              <span className="inline-block rounded-lg bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-700">Kopi = Minuman Herbal Serbuk</span>
+            </div>
             <p className="text-sm text-gray-600">
               Gratis ongkir untuk area tertentu (syarat & ketentuan berlaku). Bonus untuk pembelian grosir. Hubungi kami via WhatsApp untuk info lebih lanjut.
             </p>

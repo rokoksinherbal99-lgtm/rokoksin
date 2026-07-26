@@ -56,7 +56,7 @@ export function BankInfo({ orderId, total }: { orderId: string; total: string })
         href={`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-[#1A3626] px-4 py-3 font-sans text-sm font-semibold text-[#F9F6F0] transition hover:bg-[#2C4C3B]"
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-[#25D366] px-4 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#1da851]"
       >
         <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
         Konfirmasi Pembayaran via WA

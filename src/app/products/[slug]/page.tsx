@@ -128,7 +128,7 @@ export default async function ProductDetailPage({ params }: Props) {
             )}
             <div className="flex items-center gap-3 text-sm">
               <CheckCircle className="h-4 w-4 text-[#2C4C3B] shrink-0" strokeWidth={1.5} />
-              <span className="text-[#5D8356]">Stok: <strong className="text-[#1A3626]">{product.stock > 10 ? "Tersedia" : product.stock > 0 ? "Stok Terbatas" : "Habis"}</strong></span>
+              <span className="text-[#5D8356]">Stok: <strong className={product.stock <= 5 && product.stock > 0 ? "text-amber-600" : ""}>{product.stock > 10 ? "Tersedia" : product.stock > 0 ? `Stok Terbatas (sisa ${product.stock})` : "Habis"}</strong></span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="inline-flex items-center gap-1.5 rounded-sm border border-[#ABC1A7] bg-[#D5E0D3] px-2.5 py-1 text-xs font-semibold text-[#2C4C3B]">

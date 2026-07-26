@@ -219,3 +219,6 @@ body::before {
 ::-webkit-scrollbar-track { background: var(--color-forest-50); }
 ::-webkit-scrollbar-thumb { background: var(--color-forest-200); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-forest-300); }
+
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }

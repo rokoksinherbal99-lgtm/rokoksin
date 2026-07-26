@@ -8,7 +8,7 @@ import Testimonials from "@/components/Testimonials";
 import HomeFAQ from "@/components/HomeFAQ";
 import BannerSlider from "@/components/BannerSlider";
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/AnimateIn";
-import { Package, ShieldCheck, Truck, BadgeCheck, ChevronRight, MessageCircle, Leaf, DollarSign, FileText, MapPin, Store } from "lucide-react";
+import { Package, ShieldCheck, Truck, BadgeCheck, ChevronRight, MessageCircle, Leaf, DollarSign, FileText, MapPin, Store, CheckCircle } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -160,6 +160,28 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* 6b. Trust Badges */}
+      <section className="border-y border-[#D5E0D3] bg-[#FDFBF7] py-6">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {[
+              { text: "Terdaftar Bea Cukai", sub: "Produk resmi & legal" },
+              { text: "100% Original", sub: "Garansi uang kembali" },
+              { text: "Gratis Ongkir", sub: "Min. belanja Rp100rb" },
+              { text: "Kirim Seluruh Indonesia", sub: "Ekspedisi terpercaya" },
+            ].map((b) => (
+              <div key={b.text} className="flex items-center gap-2.5 text-center">
+                <CheckCircle className="h-5 w-5 shrink-0 text-[#2C4C3B]" strokeWidth={1.5} />
+                <div>
+                  <p className="font-sans text-xs font-bold text-[#1A3626]">{b.text}</p>
+                  <p className="font-sans text-[10px] text-[#5D8356]">{b.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 7. Tentang Toko */}
       <section className="py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
@@ -193,7 +215,51 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8. FAQ */}
+      {/* 8. Cara Order */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-4xl px-4">
+          <FadeInUp>
+            <div className="text-center">
+              <span className="font-serif text-sm uppercase tracking-[0.2em] text-[#5D8356]">— Cara Order —</span>
+              <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight text-[#1A3626]">Bagaimana Cara Memesan?</h2>
+              <div className="mx-auto mt-4 h-px max-w-[60px] bg-[#ABC1A7]" />
+            </div>
+          </FadeInUp>
+          <StaggerContainer className="mt-12 grid gap-8 md:grid-cols-3">
+            {[
+              { step: "01", icon: Package, title: "Pilih Produk", desc: "Jelajahi katalog kami dan pilih produk yang kamu suka. Klik \"Tambah ke Keranjang\" atau langsung pesan via WhatsApp." },
+              { step: "02", icon: MessageCircle, title: "Isi Data Diri", desc: "Masukkan nama, alamat pengiriman, dan nomor HP yang bisa dihubungi." },
+              { step: "03", icon: ShieldCheck, title: "Konfirmasi & Bayar", desc: "Kami akan menghubungi via WhatsApp untuk konfirmasi. Setelah itu, lakukan pembayaran dan pesanan dikirim." },
+            ].map((item) => (
+              <StaggerItem key={item.step}>
+                <div className="relative rounded-sm border border-[#D5E0D3] bg-[#FDFBF7] p-8 text-center transition-all duration-300 hover:border-[#ABC1A7]/50 hover:shadow-lg">
+                  <span className="font-serif text-5xl font-bold text-[#ABC1A7]/30">{item.step}</span>
+                  <div className="mx-auto mt-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#EDF2ED]">
+                    <item.icon className="h-7 w-7 text-[#2C4C3B]" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="mt-4 font-serif text-lg font-bold text-[#1A3626]">{item.title}</h3>
+                  <p className="mt-2 font-sans text-sm leading-relaxed text-[#5D8356]">{item.desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+          <FadeInUp delay={0.15}>
+            <div className="mt-10 text-center">
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}?text=${encodeURIComponent("Halo! Saya ingin pesan produk Sin Herbal. Bisa bantu?")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#1da851] active:scale-[0.97]"
+              >
+                <MessageCircle className="h-5 w-5" />
+                Pesan via WhatsApp
+              </a>
+            </div>
+          </FadeInUp>
+        </div>
+      </section>
+
+      {/* 9. FAQ */}
       <section className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-3xl px-4">
           <FadeInUp>
@@ -211,7 +277,37 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 9. CTA */}
+      {/* 10. Butuh Bantuan? */}
+      <section className="bg-[#FDFBF7] border-y border-[#D5E0D3] py-12">
+        <div className="mx-auto max-w-4xl px-4">
+          <FadeInUp>
+            <div className="text-center">
+              <h2 className="font-serif text-2xl font-bold tracking-tight text-[#1A3626]">Butuh Bantuan?</h2>
+              <p className="mt-2 font-sans text-sm text-[#5D8356]">Tim kami siap membantu Anda. Kirim pesan atau telepon langsung.</p>
+              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}?text=${encodeURIComponent("Halo! Saya butuh bantuan.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 font-sans text-sm font-semibold text-white shadow-sm transition hover:bg-[#1da851]"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Chat WhatsApp
+                </a>
+                <a
+                  href={`tel:${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}`}
+                  className="inline-flex items-center gap-2 rounded-sm border border-[#ABC1A7] bg-white px-6 py-3 font-sans text-sm font-semibold text-[#2C4C3B] transition hover:bg-[#EDF2ED]"
+                >
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                  Telepon Kami
+                </a>
+              </div>
+            </div>
+          </FadeInUp>
+        </div>
+      </section>
+
+      {/* 11. CTA */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#1A3626] via-[#2C4C3B] to-[#1A3626] py-20">
         <div className="absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ABC1A7]/10 blur-3xl" />
         <div className="absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-[#81A27B]/10 blur-3xl" />
@@ -226,7 +322,7 @@ export default async function HomePage() {
               className="mt-8 inline-flex items-center gap-2 border border-[#ABC1A7]/30 bg-white px-7 py-3.5 font-sans text-sm font-semibold text-[#1A3626] transition-all duration-200 hover:bg-white active:scale-[0.97]"
             >
               <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
-              Ajak Ngobrol
+              Chat via WhatsApp
             </a>
           </div>
         </FadeInUp>

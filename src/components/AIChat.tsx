@@ -55,17 +55,17 @@ export default function AIChat() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 md:bottom-8 md:right-8">
       {open && (
-        <div className="flex w-80 flex-col overflow-hidden rounded-sm border border-[#D5E0D3] bg-white shadow-2xl">
+        <div className="flex w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-sm border border-[#D5E0D3] bg-white shadow-2xl animate-scale-in">
           <div className="flex items-center justify-between bg-[#1A3626] px-4 py-3">
             <div className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-sm border border-[#ABC1A7]/30">
                 <Bot className="h-5 w-5 text-[#ABC1A7]" strokeWidth={1.5} />
               </div>
               <div>
-                <p className="font-sans text-sm font-bold text-white">Sin Herbal</p>
-                <p className="font-sans text-xs text-[#ABC1A7]/70">Online</p>
+                <p className="font-sans text-sm font-bold text-white">Tanya Sin</p>
+                <p className="font-sans text-xs text-[#ABC1A7]/70">Balasan instan</p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="rounded-sm p-1 transition hover:bg-[#2C4C3B]">
@@ -106,10 +106,16 @@ export default function AIChat() {
           </div>
         </div>
       )}
+      {!open && (
+        <div className="hidden md:flex items-center gap-2 rounded-full bg-[#1A3626] px-4 py-2.5 shadow-lg shadow-[#2C4C3B]/20 transition-all duration-200 hover:bg-[#2C4C3B] cursor-pointer" onClick={() => setOpen(true)}>
+          <MessageCircle className="h-5 w-5 text-white" strokeWidth={1.5} />
+          <span className="font-sans text-sm font-semibold text-white">Tanya Sin</span>
+        </div>
+      )}
       <button
         onClick={() => setOpen(!open)}
         aria-label={open ? "Tutup chat" : "Buka chat"}
-        className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-[#1A3626] text-white shadow-lg shadow-[#2C4C3B]/30 transition-all duration-200 hover:scale-110 hover:shadow-xl active:scale-95"
+        className={`group relative flex h-14 w-14 items-center justify-center rounded-full bg-[#1A3626] text-white shadow-lg shadow-[#2C4C3B]/30 transition-all duration-200 hover:scale-110 hover:shadow-xl active:scale-95 ${open ? "md:hidden" : "md:hidden"}`}
       >
         <span className="absolute -top-1 -right-1 flex h-4 w-4">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ABC1A7] opacity-75" />

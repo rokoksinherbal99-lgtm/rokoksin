@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/utils";
 import { Trash2, Minus, Plus, ShoppingBag, ShoppingCart, MessageCircle } from "lucide-react";
+import { useCart } from "@/lib/cart-context";
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, total } = useCart();
@@ -17,9 +17,19 @@ export default function CartPage() {
         </div>
         <h1 className="font-serif text-2xl font-bold tracking-tight text-[#2C2416]">Masih Sepi</h1>
         <p className="mt-2 font-sans text-sm text-[#A8987F]">Belum ada yang kamu pilih. Yuk, lihat-lihat dulu.</p>
-        <Link href="/products" className="btn-primary mt-8 gap-2 inline-flex">
-          <ShoppingCart className="h-5 w-5" strokeWidth={1.5} /> Mulai Jelajahi
-        </Link>
+        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <Link href="/products" className="inline-flex items-center gap-2 rounded-sm bg-[#1A3626] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#2C4C3B]">
+            <ShoppingCart className="h-4 w-4" strokeWidth={1.5} /> Mulai Belanja
+          </Link>
+          <a
+            href="https://wa.me/6285161835757?text=Halo!%20Saya%20ingin%20pesan%20produk%20Sin%20Herbal."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-sm border border-[#25D366] bg-white px-6 py-3 font-sans text-sm font-semibold text-[#25D366] transition hover:bg-[#25D366]/5"
+          >
+            <MessageCircle className="h-4 w-4" /> Pesan via WhatsApp
+          </a>
+        </div>
       </div>
     );
   }
@@ -47,17 +57,17 @@ export default function CartPage() {
               </Link>
               <p className="mt-1 font-sans text-sm font-bold text-[#2C4C3B]">{formatPrice(item.price)}</p>
             </div>
-            <div className="flex items-center gap-1.5">
-              <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} className="flex h-8 w-8 items-center justify-center rounded-sm border border-[#E0D7C5] text-[#C4B8A2] transition hover:border-[#ABC1A7] hover:bg-[#EDF2ED] hover:text-[#2C4C3B]">
-                <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
+            <div className="flex items-center gap-2">
+              <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} className="flex h-10 w-10 items-center justify-center rounded-sm border border-[#E0D7C5] text-[#C4B8A2] transition hover:border-[#ABC1A7] hover:bg-[#EDF2ED] hover:text-[#2C4C3B]">
+                <Minus className="h-4 w-4" strokeWidth={2} />
               </button>
-              <span className="w-10 text-center font-sans text-sm font-semibold text-[#2C2416]">{item.quantity}</span>
-              <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="flex h-8 w-8 items-center justify-center rounded-sm border border-[#E0D7C5] text-[#C4B8A2] transition hover:border-[#ABC1A7] hover:bg-[#EDF2ED] hover:text-[#2C4C3B]">
-                <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
+              <span className="w-10 text-center font-sans text-base font-bold text-[#2C2416]">{item.quantity}</span>
+              <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="flex h-10 w-10 items-center justify-center rounded-sm border border-[#E0D7C5] text-[#C4B8A2] transition hover:border-[#ABC1A7] hover:bg-[#EDF2ED] hover:text-[#2C4C3B]">
+                <Plus className="h-4 w-4" strokeWidth={2} />
               </button>
             </div>
             <p className="w-24 text-right font-sans font-bold text-[#2C2416]">{formatPrice(item.price * item.quantity)}</p>
-            <button onClick={() => removeItem(item.id)} className="flex h-9 w-9 items-center justify-center rounded-sm text-[#C4B8A2] transition hover:bg-[#F0EBE0] hover:text-[#2C2416]">
+            <button onClick={() => removeItem(item.id)} className="flex h-10 w-10 items-center justify-center rounded-sm text-[#C4B8A2] transition hover:bg-red-50 hover:text-red-500" title="Hapus item">
               <Trash2 className="h-4 w-4" strokeWidth={1.5} />
             </button>
           </div>
@@ -65,13 +75,38 @@ export default function CartPage() {
       </div>
 
       <div className="mt-10 rounded-sm border border-[#E0D7C5] bg-[#FDFBF7] p-6 shadow-sm">
+        {total >= 100000 && (
+          <div className="mb-4 rounded-sm border border-[#25D366]/30 bg-[#25D366]/5 px-4 py-2.5 text-center">
+            <p className="font-sans text-xs font-semibold text-[#25D366]">Selamat! Pesanan Anda sudah memenuhi syarat gratis ongkir 🎉</p>
+          </div>
+        )}
         <div className="flex items-center justify-between">
           <span className="font-sans text-lg text-[#A8987F]">Total Belanja</span>
           <span className="font-serif text-3xl font-bold tracking-tight text-[#1A3626]">{formatPrice(total)}</span>
         </div>
         <Link href="/checkout" className="btn-primary mt-6 w-full gap-2 inline-flex justify-center">
-          <MessageCircle className="h-5 w-5" strokeWidth={1.5} /> Lanjutkan ke Checkout
+          <ShoppingBag className="h-5 w-5" strokeWidth={1.5} /> Lanjutkan ke Checkout
         </Link>
+        <div className="mt-3 text-center">
+          <a
+            href={`https://wa.me/6285161835757?text=${encodeURIComponent("Halo! Saya ingin pesan:\n\n" + items.map((i) => `${i.name} x${i.quantity} = ${formatPrice(i.price * i.quantity)}`).join("\n") + `\n\nTotal: ${formatPrice(total)}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-[#25D366] transition hover:text-[#1da851]"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Atau pesan langsung via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div className="mt-8 rounded-sm border border-[#D5E0D3] bg-[#EDF2ED]/50 p-4 text-center">
+        <p className="font-sans text-xs text-[#5D8356]">
+          Belum paham cara pesan?{" "}
+          <a href="https://wa.me/6285161835757?text=Halo!%20Saya%20mau%20tanya%20cara%20pesan%20produk." target="_blank" rel="noopener noreferrer" className="font-semibold text-[#25D366] underline hover:text-[#1da851]">
+            Tanya kami via WhatsApp
+          </a>
+        </p>
       </div>
     </div>
   );

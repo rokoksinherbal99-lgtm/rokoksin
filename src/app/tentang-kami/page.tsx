@@ -141,15 +141,23 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-4xl px-4 text-center">
           <h2 className="font-serif text-3xl font-bold tracking-tight text-[white]">Jadi Bagian dari Perjalanan Kami?</h2>
           <p className="mt-3 font-sans text-lg text-[#D5E0D3]/70">Jadilah reseller atau distributor Sin Herbal. Dapatkan harga khusus dan dukungan pemasaran.</p>
-          <a
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary mt-8 inline-flex items-center gap-2 border-[#ABC1A7]/30 bg-[white] text-[#1A3626] hover:bg-white"
-          >
-            <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
-            Hubungi WhatsApp
-          </a>
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <a
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}?text=${encodeURIComponent("Halo! Saya tertarik menjadi reseller/distributor Sin Herbal.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#1da851]"
+            >
+              <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
+              Chat WhatsApp
+            </a>
+            <a
+              href="/products"
+              className="inline-flex items-center gap-2 rounded-sm border border-[#ABC1A7]/30 bg-white px-6 py-3 font-sans text-sm font-semibold text-[#1A3626] transition hover:bg-white/90"
+            >
+              Lihat Produk
+            </a>
+          </div>
         </div>
       </section>
     </div>

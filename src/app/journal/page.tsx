@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Leaf, Shield, Heart } from "lucide-react";
+import { BookOpen, Leaf, Shield, Heart, MessageCircle } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -104,14 +104,20 @@ export default function JournalPage() {
         <div className="relative mx-auto max-w-3xl px-4 text-center">
           <h2 className="text-3xl font-bold text-white">Ingin Berkontribusi?</h2>
           <p className="mt-3 text-lg text-[#ABC1A7]">Punya artikel atau pengalaman seputar herbal? Kirimkan ke kami.</p>
-          <a
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary mt-8 gap-2.5"
-          >
-            Hubungi Kami
-          </a>
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <a
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WA_PHONE || "6285161835757"}?text=${encodeURIComponent("Halo! Saya ingin berkontribusi artikel untuk jurnal Sin Herbal.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#1da851]"
+            >
+              <MessageCircle className="h-5 w-5" strokeWidth={1.5} />
+              Kirim via WhatsApp
+            </a>
+            <Link href="/products" className="inline-flex items-center gap-2 rounded-sm border border-[#ABC1A7]/30 bg-white px-6 py-3 font-sans text-sm font-semibold text-[#1A3626] transition hover:bg-white/90">
+              Mulai Belanja
+            </Link>
+          </div>
         </div>
       </section>
     </div>
