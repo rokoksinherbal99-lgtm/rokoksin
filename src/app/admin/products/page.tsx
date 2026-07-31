@@ -104,8 +104,8 @@ export default function AdminProductsPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Produk</h1>
-          <p className="mt-1 text-sm text-gray-400">Kelola stok & inventori</p>
+          <h1 className="text-2xl font-bold text-foreground">Produk</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Kelola stok & inventori</p>
         </div>
         <div className="flex items-center gap-3">
           {selected.size > 0 && (
@@ -113,7 +113,7 @@ export default function AdminProductsPage() {
               <Trash2 className="h-4 w-4" /> {bulkLoading ? "Menghapus..." : `Hapus (${selected.size})`}
             </button>
           )}
-          <Link href="/admin/products/new" className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-500 active:scale-[0.97]">
+          <Link href="/admin/products/new" className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
             <Plus className="h-4 w-4" /> Tambah Produk
           </Link>
         </div>
@@ -121,7 +121,7 @@ export default function AdminProductsPage() {
 
       <div className="mt-4 flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari produk..." className="w-full rounded-lg border py-2 pl-9 pr-3 text-sm" />
         </div>
         <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="rounded-lg border px-3 py-2 text-sm">
@@ -136,33 +136,33 @@ export default function AdminProductsPage() {
 
       <div className="mt-4 overflow-x-auto rounded-xl border bg-white shadow-sm">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-gray-50">
+          <thead className="border-b bg-muted/50">
             <tr>
               <th className="px-4 py-3">
-                <input type="checkbox" onChange={toggleAll} checked={selected.size === filtered.length && filtered.length > 0} className="rounded border-gray-300 text-emerald-600" />
+                <input type="checkbox" onChange={toggleAll} checked={selected.size === filtered.length && filtered.length > 0} className="rounded border-border text-foreground" />
               </th>
-              <th className="px-4 py-3 font-medium text-gray-600">Nama</th>
-              <th className="px-4 py-3 font-medium text-gray-600">Harga</th>
-              <th className="px-4 py-3 font-medium text-gray-600">Stok</th>
-              <th className="px-4 py-3 font-medium text-gray-600">Unggulan</th>
-              <th className="px-4 py-3 font-medium text-gray-600">Aksi</th>
+              <th className="px-4 py-3 font-medium text-muted-foreground">Nama</th>
+              <th className="px-4 py-3 font-medium text-muted-foreground">Harga</th>
+              <th className="px-4 py-3 font-medium text-muted-foreground">Stok</th>
+              <th className="px-4 py-3 font-medium text-muted-foreground">Unggulan</th>
+              <th className="px-4 py-3 font-medium text-muted-foreground">Aksi</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((p) => {
               return (
-                <tr key={p.id} className={`border-b last:border-0 transition ${selected.has(p.id) ? "bg-emerald-50/50" : ""}`}>
+                <tr key={p.id} className={`border-b last:border-0 transition ${selected.has(p.id) ? "bg-muted/50" : ""}`}>
                   <td className="px-4 py-3">
-                    <input type="checkbox" checked={selected.has(p.id)} onChange={() => toggleOne(p.id)} className="rounded border-gray-300 text-emerald-600" />
+                    <input type="checkbox" checked={selected.has(p.id)} onChange={() => toggleOne(p.id)} className="rounded border-border text-foreground" />
                   </td>
-                  <td className="px-4 py-3 font-medium text-gray-800">
-                    <Link href={`/products/${p.slug}`} className="hover:text-emerald-700">{p.name}</Link>
+                  <td className="px-4 py-3 font-medium text-foreground">
+                    <Link href={`/products/${p.slug}`} className="hover:text-foreground">{p.name}</Link>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{formatPrice(p.price)}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{formatPrice(p.price)}</td>
                   <td className="px-4 py-3">
-                    <span className={`font-medium ${p.stock < 11 ? "text-red-600" : "text-gray-800"}`}>
+                    <span className={`font-medium ${p.stock < 11 ? "text-red-600" : "text-foreground"}`}>
                       {p.stock}
-                      {p.stock < 11 && p.stock > 0 && <AlertTriangle className="ml-1 inline h-3 w-3 text-amber-500" />}
+                      {p.stock < 11 && p.stock > 0 && <AlertTriangle className="ml-1 inline h-3 w-3 text-foreground" />}
                       {p.stock === 0 && <span className="ml-1 text-xs text-red-500">(habis)</span>}
                     </span>
                   </td>
@@ -170,17 +170,17 @@ export default function AdminProductsPage() {
                     <button
                       onClick={() => toggleFeatured(p.id, p.featured)}
                       className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
-                        p.featured ? "bg-emerald-100 text-emerald-700" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                        p.featured ? "bg-muted text-foreground" : "bg-muted text-muted-foreground hover:bg-muted"
                       }`}
                     >
                       {p.featured ? "Ya" : "Tidak"}
                     </button>
                   </td>
                   <td className="flex gap-2 px-4 py-3">
-                    <Link href={`/admin/products/edit/${p.id}`} className="rounded-lg border border-gray-200 p-1.5 text-blue-600 transition hover:bg-blue-50" title="Edit">
+                    <Link href={`/admin/products/edit/${p.id}`} className="rounded-lg border border-border p-1.5 text-blue-600 transition hover:bg-blue-50" title="Edit">
                       <Pencil className="h-4 w-4" />
                     </Link>
-                    <button onClick={() => remove(p.id)} className="rounded-lg border border-gray-200 p-1.5 text-red-600 transition hover:bg-red-50" title="Hapus">
+                    <button onClick={() => remove(p.id)} className="rounded-lg border border-border p-1.5 text-red-600 transition hover:bg-red-50" title="Hapus">
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </td>
@@ -189,8 +189,8 @@ export default function AdminProductsPage() {
             })}
           </tbody>
         </table>
-        {loading && <p className="p-8 text-center text-gray-400">Memuat...</p>}
-        {!loading && filtered.length === 0 && <p className="p-8 text-center text-gray-400">{search ? "Tidak ada produk yang cocok." : "Belum ada produk."}</p>}
+        {loading && <p className="p-8 text-center text-muted-foreground">Memuat...</p>}
+        {!loading && filtered.length === 0 && <p className="p-8 text-center text-muted-foreground">{search ? "Tidak ada produk yang cocok." : "Belum ada produk."}</p>}
       </div>
     </div>
   );

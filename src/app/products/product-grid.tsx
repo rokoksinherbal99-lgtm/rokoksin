@@ -22,7 +22,7 @@ export default function ProductGrid({ products, categories }: { products: Produc
   const router = useRouter();
   const initialCat = searchParams.get("cat") || "";
   const catToId = Object.fromEntries(categories.map((c) => [c.slug, c.id]));
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(searchParams.get("q") || "");
   const [catFilter, setCatFilter] = useState(initialCat ? catToId[initialCat] || "" : "");
   const [page, setPage] = useState(1);
 
@@ -50,15 +50,15 @@ export default function ProductGrid({ products, categories }: { products: Produc
     <>
       <div className="mt-8 space-y-4">
         <div className="relative max-w-sm">
-          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-          <input value={search} onChange={(e) => handleFilterChange("search", e.target.value)} placeholder="Cari produk..." className="w-full rounded-2xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-700 placeholder-gray-400 shadow-sm transition focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
+          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <input value={search} onChange={(e) => handleFilterChange("search", e.target.value)} placeholder="Cari produk..." className="w-full rounded-full border border-input bg-card py-2.5 pl-10 pr-4 text-sm text-foreground placeholder-muted-foreground shadow-sm transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ring" />
         </div>
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
           {[{ id: "", name: "Semua", slug: "" } as Category, ...categories].map((c) => (
-            <button key={c.id} onClick={() => handleFilterChange("cat", c.id)} className={`shrink-0 rounded-xl px-4 py-2 text-sm font-semibold transition-all ${
+            <button key={c.id} onClick={() => handleFilterChange("cat", c.id)} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               catFilter === c.id
-                ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md shadow-emerald-200"
-                : "border border-gray-200 bg-white text-gray-600 shadow-sm hover:border-emerald-200 hover:text-emerald-600 hover:shadow-md"
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "border border-border bg-card text-muted-foreground shadow-sm hover:border-foreground/30 hover:text-foreground hover:shadow-md"
             }`}>
               {c.name}
             </button>
@@ -68,11 +68,11 @@ export default function ProductGrid({ products, categories }: { products: Produc
 
       {filtered.length === 0 ? (
         <div className="mt-16 text-center">
-          <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-gray-100 flex items-center justify-center">
-            <Search className="h-8 w-8 text-gray-300" />
+          <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-muted flex items-center justify-center">
+            <Search className="h-8 w-8 text-muted-foreground/40" />
           </div>
-          <p className="text-gray-500 font-medium">Tidak ada produk yang cocok</p>
-          <p className="text-sm text-gray-400 mt-1">Coba kata kunci atau filter lain</p>
+          <p className="font-medium text-foreground">Tidak ada produk yang cocok</p>
+          <p className="mt-1 text-sm text-muted-foreground">Coba kata kunci atau filter lain</p>
         </div>
       ) : (
         <>
@@ -84,21 +84,21 @@ export default function ProductGrid({ products, categories }: { products: Produc
 
           {totalPages > 1 && (
             <div className="mt-12 flex items-center justify-center gap-2">
-              <button disabled={page <= 1} onClick={() => setPage(page - 1)} className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed">
+              <button disabled={page <= 1} onClick={() => setPage(page - 1)} className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition hover:border-foreground/30 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40">
                 Sebelumnya
               </button>
               <div className="flex gap-1">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                  <button key={p} onClick={() => setPage(p)} className={`h-10 min-w-[40px] rounded-xl text-sm font-semibold transition-all ${
+                  <button key={p} onClick={() => setPage(p)} className={`h-10 min-w-[40px] rounded-lg text-sm font-semibold transition-all ${
                     p === page
-                      ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md shadow-emerald-200"
-                      : "border border-gray-200 bg-white text-gray-600 shadow-sm hover:border-gray-300 hover:shadow-md"
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "border border-border bg-card text-muted-foreground shadow-sm hover:border-foreground/30 hover:shadow-md"
                   }`}>
                     {p}
                   </button>
                 ))}
               </div>
-              <button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed">
+              <button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition hover:border-foreground/30 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40">
                 Selanjutnya
               </button>
             </div>

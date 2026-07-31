@@ -39,19 +39,19 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-700">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-foreground via-muted-foreground to-muted-foreground">
       <div className="pointer-events-none fixed inset-0">
-        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
+        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-foreground/5 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-foreground/5 blur-3xl" />
       </div>
       <form onSubmit={handleLogin} className="relative w-full max-w-sm animate-scale-in px-4">
-        <div className="rounded-2xl border border-emerald-400/20 bg-white/95 p-8 shadow-2xl shadow-emerald-900/20 backdrop-blur-sm">
+        <div className="rounded-2xl border border-border/20 bg-white/95 p-8 shadow-2xl shadow-foreground/20 backdrop-blur-sm">
           <div className="text-center">
-            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-500 shadow-lg shadow-emerald-200/50">
+            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-foreground to-muted-foreground shadow-lg shadow-foreground/5/50">
               <Leaf className="h-8 w-8 text-white" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">Sin Herbal</h1>
-            <p className="text-sm text-gray-400">Panel Admin</p>
+            <h1 className="text-xl font-bold text-foreground">Sin Herbal</h1>
+            <p className="text-sm text-muted-foreground">Panel Admin</p>
           </div>
 
           {error && (
@@ -63,26 +63,26 @@ export default function AdminLoginPage() {
 
           <div className="mt-6 space-y-4">
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-gray-500">Username</label>
+              <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Username</label>
               <input
                 ref={inputRef}
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Masukkan username"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 transition focus:border-emerald-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
                 autoComplete="username"
                 disabled={loading}
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-gray-500">Password</label>
+              <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan password admin"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 transition focus:border-emerald-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-100"
+                className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
                 autoComplete="current-password"
                 disabled={loading}
               />
@@ -96,14 +96,14 @@ export default function AdminLoginPage() {
             </button>
           </div>
 
-          <div className="mt-6 space-y-3 text-center text-xs text-gray-400">
+          <div className="mt-6 space-y-3 text-center text-xs text-muted-foreground">
             <p>
-              <Link href="/" className="inline-flex items-center gap-1 transition hover:text-emerald-600">
+              <Link href="/" className="inline-flex items-center gap-1 transition hover:text-foreground">
                 <ArrowLeft className="h-3 w-3" /> Kembali ke Beranda
               </Link>
             </p>
             <p>
-              <a href="https://wa.me/6285161835757?text=Halo%20Sin%20Herbal%2C%20saya%20lupa%20password%20admin." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 transition hover:text-emerald-600">
+              <a href="https://wa.me/6285161835757?text=Halo%20Sin%20Herbal%2C%20saya%20lupa%20password%20admin." target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 transition hover:text-foreground">
                 Lupa password? Hubungi kami
               </a>
             </p>

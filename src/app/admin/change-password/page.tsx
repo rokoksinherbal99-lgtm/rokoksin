@@ -55,7 +55,7 @@ export default function ChangePasswordPage() {
 
   return (
     <div className="mx-auto max-w-md">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Ganti Password</h1>
+      <h1 className="mb-6 text-2xl font-bold text-foreground">Ganti Password</h1>
 
       {error && (
         <div className="mb-4 flex items-start gap-2.5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -65,7 +65,7 @@ export default function ChangePasswordPage() {
       )}
 
       {success && (
-        <div className="mb-4 flex items-start gap-2.5 rounded-xl border border-green-100 bg-green-50 px-4 py-3 text-sm text-green-700">
+        <div className="mb-4 flex items-start gap-2.5 rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground">
           <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>{success}</span>
         </div>
@@ -73,47 +73,47 @@ export default function ChangePasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="mb-1.5 block text-xs font-medium text-gray-500">Password Saat Ini</label>
+          <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Password Saat Ini</label>
           <div className="relative">
             <input
               type={showCurrent ? "text" : "password"}
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 pr-10 text-sm transition focus:border-emerald-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 pr-10 text-sm transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
               autoComplete="current-password"
               disabled={loading}
             />
-            <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+            <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground">
               {showCurrent ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
         </div>
 
         <div>
-          <label className="mb-1.5 block text-xs font-medium text-gray-500">Password Baru</label>
+          <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Password Baru</label>
           <div className="relative">
             <input
               type={showNew ? "text" : "password"}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 pr-10 text-sm transition focus:border-emerald-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 pr-10 text-sm transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
               autoComplete="new-password"
               disabled={loading}
             />
-            <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+            <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground">
               {showNew ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <p className="mt-1 text-xs text-gray-400">Minimal 8 karakter</p>
+          <p className="mt-1 text-xs text-muted-foreground">Minimal 8 karakter</p>
         </div>
 
         <div>
-          <label className="mb-1.5 block text-xs font-medium text-gray-500">Konfirmasi Password Baru</label>
+          <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Konfirmasi Password Baru</label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm transition focus:border-emerald-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-100"
+            className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 text-sm transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
             autoComplete="new-password"
             disabled={loading}
           />

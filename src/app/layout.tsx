@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
 });
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -93,8 +87,8 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body className={`${inter.variable} ${playfair.variable} flex min-h-screen flex-col`}>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:rounded-sm focus:bg-[#1A3626] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
+      <body className={`${inter.variable} flex min-h-screen flex-col`}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:rounded-sm focus:bg-[#18181B] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">
           Langsung ke konten
         </a>
         <ToastProvider>

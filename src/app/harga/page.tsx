@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 };
 
 const typeStyles: Record<string, string> = {
-  SKT: "bg-amber-50 text-amber-700",
+  SKT: "bg-muted text-foreground",
   SKM: "bg-blue-50 text-blue-700",
-  Kopi: "bg-teal-50 text-teal-700",
+  Kopi: "bg-muted text-foreground",
 };
 
 const productTypes: Record<string, string> = {
@@ -57,14 +57,14 @@ export default async function PriceListPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-emerald-50 to-white py-20">
+      <section className="bg-gradient-to-b from-muted/50 to-background py-20">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-200">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-foreground to-muted-foreground shadow-lg shadow-foreground/5">
             <Tag className="h-8 w-8 text-white" />
           </div>
-          <span className="inline-block rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">Harga</span>
-          <h1 className="mt-3 text-4xl font-bold text-gray-900">Daftar Harga</h1>
-          <p className="mt-2 text-gray-500">Harga produk Sin Herbal terkini, terjangkau dan bersaing.</p>
+          <span className="inline-block rounded-full bg-muted px-4 py-1 text-sm font-semibold text-foreground">Harga</span>
+          <h1 className="mt-3 text-4xl font-bold text-foreground">Daftar Harga</h1>
+          <p className="mt-2 text-muted-foreground">Harga produk Sin Herbal terkini, terjangkau dan bersaing.</p>
         </div>
       </section>
 
@@ -72,35 +72,35 @@ export default async function PriceListPage() {
         <div className="mx-auto max-w-4xl px-4 space-y-12">
           {Object.values(grouped).map((group) => (
             <div key={group.category}>
-              <h2 className="text-xl font-bold text-gray-900 mb-5">{group.category}</h2>
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+              <h2 className="text-xl font-bold text-foreground mb-5">{group.category}</h2>
+              <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="bg-gradient-to-r from-emerald-50 to-white">
-                      <th className="px-5 py-3.5 font-semibold text-gray-700" colSpan={2}>Produk</th>
-                      <th className="px-5 py-3.5 font-semibold text-gray-700">Tipe</th>
-                      <th className="px-5 py-3.5 font-semibold text-gray-700 text-right">Harga</th>
+                    <tr className="bg-gradient-to-r from-muted/50 to-background">
+                      <th className="px-5 py-3.5 font-semibold text-foreground" colSpan={2}>Produk</th>
+                      <th className="px-5 py-3.5 font-semibold text-foreground">Tipe</th>
+                      <th className="px-5 py-3.5 font-semibold text-foreground text-right">Harga</th>
                     </tr>
                   </thead>
                   <tbody>
                     {group.items.map((item, i) => (
-                      <tr key={i} className="border-t border-gray-50 transition hover:bg-gray-50/50">
+                      <tr key={i} className="border-t border-border transition hover:bg-muted/50">
                         <td className="px-5 py-3 w-12">
-                          <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-gray-100">
+                          <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-muted">
                             <Image src={item.image} alt={item.name} fill unoptimized sizes="40px" className="object-cover" />
                           </div>
                         </td>
-                        <td className="py-4 font-medium text-gray-800">
-                          <a href={`/products/${item.slug}`} className="transition hover:text-emerald-600 hover:underline">{item.name}</a>
+                        <td className="py-4 font-medium text-foreground">
+                          <a href={`/products/${item.slug}`} className="transition hover:text-foreground hover:underline">{item.name}</a>
                         </td>
                         <td className="px-5 py-4">
                           {item.type !== "-" ? (
-                            <span className={`inline-block rounded-lg px-2.5 py-1 text-xs font-semibold ${typeStyles[item.type] || "bg-gray-100 text-gray-600"}`}>{item.type}</span>
+                            <span className={`inline-block rounded-lg px-2.5 py-1 text-xs font-semibold ${typeStyles[item.type] || "bg-muted text-muted-foreground"}`}>{item.type}</span>
                           ) : (
-                            <span className="text-gray-400">-</span>
+                            <span className="text-muted-foreground">-</span>
                           )}
                         </td>
-                        <td className="px-5 py-4 text-right font-bold text-emerald-600">{formatPrice(item.price)}</td>
+                        <td className="px-5 py-4 text-right font-bold text-foreground">{formatPrice(item.price)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -109,17 +109,17 @@ export default async function PriceListPage() {
             </div>
           ))}
 
-          <div className="rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 p-6">
+          <div className="rounded-2xl bg-gradient-to-br from-muted/50 to-background border border-border p-6">
             <div className="flex items-center gap-3 mb-3">
-              <Info className="h-5 w-5 text-emerald-500 shrink-0" />
-              <p className="text-sm font-semibold text-gray-700">Keterangan Tipe Produk</p>
+              <Info className="h-5 w-5 text-foreground shrink-0" />
+              <p className="text-sm font-semibold text-foreground">Keterangan Tipe Produk</p>
             </div>
             <div className="flex flex-wrap gap-3 mb-4">
-              <span className="inline-block rounded-lg bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">SKT = Sigaret Kretek Tanpa Filter</span>
+              <span className="inline-block rounded-lg bg-muted px-3 py-1.5 text-xs font-semibold text-foreground">SKT = Sigaret Kretek Tanpa Filter</span>
               <span className="inline-block rounded-lg bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700">SKM = Sigaret Kretek Mesin</span>
-              <span className="inline-block rounded-lg bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-700">Kopi = Minuman Herbal Serbuk</span>
+              <span className="inline-block rounded-lg bg-muted px-3 py-1.5 text-xs font-semibold text-foreground">Kopi = Minuman Herbal Serbuk</span>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted-foreground">
               Gratis ongkir untuk area tertentu (syarat & ketentuan berlaku). Bonus untuk pembelian grosir. Hubungi kami via WhatsApp untuk info lebih lanjut.
             </p>
           </div>

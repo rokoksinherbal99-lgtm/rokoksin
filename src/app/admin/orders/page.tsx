@@ -21,10 +21,10 @@ interface Order {
 const STATUSES = ["pending", "confirmed", "shipped", "delivered", "cancelled"];
 
 const statusColor: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-700",
+  pending: "bg-muted text-foreground",
   confirmed: "bg-blue-100 text-blue-700",
   shipped: "bg-purple-100 text-purple-700",
-  delivered: "bg-green-100 text-green-700",
+  delivered: "bg-muted text-foreground",
   cancelled: "bg-red-100 text-red-700",
 };
 
@@ -202,8 +202,8 @@ export default function AdminOrdersPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Pesanan</h1>
-          <p className="mt-1 text-sm text-gray-400">Kelola pesanan pelanggan</p>
+          <h1 className="text-2xl font-bold text-foreground">Pesanan</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Kelola pesanan pelanggan</p>
         </div>
         <div className="flex items-center gap-3">
           {selected.size > 0 && (
@@ -211,7 +211,7 @@ export default function AdminOrdersPage() {
               <button onClick={() => bulkUpdateStatus("shipped")} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-100 disabled:opacity-50">
                 <Check className="h-4 w-4" /> {bulkLoading ? "Memproses..." : `Kirim (${selected.size})`}
               </button>
-              <button onClick={bulkPrint} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 disabled:opacity-50">
+              <button onClick={bulkPrint} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50 disabled:opacity-50">
                 <Printer className="h-4 w-4" /> Cetak ({selected.size})
               </button>
               <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-50">
@@ -219,24 +219,24 @@ export default function AdminOrdersPage() {
               </button>
             </>
           )}
-          <button onClick={() => setShowManual(!showManual)} className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-500 active:scale-[0.97]">
+          <button onClick={() => setShowManual(!showManual)} className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
             <Plus className="h-4 w-4" /> Tambah Pesanan Manual
           </button>
         </div>
       </div>
 
       {showManual && (
-        <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 p-6">
-          <h2 className="font-bold text-gray-800 flex items-center gap-2"><MessageCircle className="h-5 w-5 text-emerald-600" /> Tambah Pesanan dari WhatsApp</h2>
+        <div className="mt-6 rounded-2xl border border-border bg-muted p-6">
+          <h2 className="font-bold text-foreground flex items-center gap-2"><MessageCircle className="h-5 w-5 text-foreground" /> Tambah Pesanan dari WhatsApp</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <input value={custName} onChange={(e) => setCustName(e.target.value)} placeholder="Nama pelanggan" className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-emerald-300" />
-            <input value={custPhone} onChange={(e) => setCustPhone(e.target.value)} placeholder="No. WhatsApp (opsional)" className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-emerald-300" />
+            <input value={custName} onChange={(e) => setCustName(e.target.value)} placeholder="Nama pelanggan" className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
+            <input value={custPhone} onChange={(e) => setCustPhone(e.target.value)} placeholder="No. WhatsApp (opsional)" className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
           </div>
           <div className="mt-4">
-            <label className="text-sm font-medium text-gray-600">Tambah Produk</label>
+            <label className="text-sm font-medium text-muted-foreground">Tambah Produk</label>
             <select
               onChange={(e) => { if (e.target.value) { addToCart(e.target.value); e.target.value = ""; } }}
-              className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-emerald-300"
+              className="mt-1 w-full rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border"
             >
               <option value="">-- Pilih produk --</option>
               {products.map((p) => <option key={p.id} value={p.id}>{p.name} — {formatPrice(p.price)} (stok: {p.stock})</option>)}
@@ -247,26 +247,26 @@ export default function AdminOrdersPage() {
               {cart.map((c) => (
                 <div key={c.productId} className="flex items-center justify-between rounded-xl bg-white px-4 py-2.5 shadow-sm">
                   <div className="flex items-center gap-3">
-                    <span className="font-medium text-gray-800">{c.name}</span>
-                    <span className="text-sm text-gray-400">x{c.quantity}</span>
-                    <span className="text-sm font-semibold text-emerald-700">{formatPrice(c.price * c.quantity)}</span>
+                    <span className="font-medium text-foreground">{c.name}</span>
+                    <span className="text-sm text-muted-foreground">x{c.quantity}</span>
+                    <span className="text-sm font-semibold text-foreground">{formatPrice(c.price * c.quantity)}</span>
                   </div>
-                  <button onClick={() => removeFromCart(c.productId)} className="text-gray-400 transition hover:text-red-500">
+                  <button onClick={() => removeFromCart(c.productId)} className="text-muted-foreground transition hover:text-red-500">
                     <X className="h-4 w-4" />
                   </button>
                 </div>
               ))}
-              <div className="flex items-center justify-between rounded-xl bg-emerald-100 px-4 py-3">
-                <span className="font-bold text-gray-800">Total</span>
-                <span className="font-bold text-emerald-700">{formatPrice(cart.reduce((s, c) => s + c.price * c.quantity, 0))}</span>
+              <div className="flex items-center justify-between rounded-xl bg-muted px-4 py-3">
+                <span className="font-bold text-foreground">Total</span>
+                <span className="font-bold text-foreground">{formatPrice(cart.reduce((s, c) => s + c.price * c.quantity, 0))}</span>
               </div>
             </div>
           )}
           <div className="mt-4 flex gap-3">
-            <button onClick={saveManualOrder} disabled={saving || !custName || cart.length === 0} className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 disabled:opacity-50">
+            <button onClick={saveManualOrder} disabled={saving || !custName || cart.length === 0} className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 disabled:opacity-50">
               {saving ? "Menyimpan..." : "Simpan Pesanan"}
             </button>
-            <button onClick={() => { setShowManual(false); setCart([]); setCustName(""); setCustPhone(""); }} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50">
+            <button onClick={() => { setShowManual(false); setCart([]); setCustName(""); setCustPhone(""); }} className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-5 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
               Batal
             </button>
           </div>
@@ -275,7 +275,7 @@ export default function AdminOrdersPage() {
 
       <div className="mt-4 flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari customer, email, atau ID..." className="w-full rounded-lg border py-2 pl-9 pr-3 text-sm" />
         </div>
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-lg border px-3 py-2 text-sm">
@@ -285,28 +285,28 @@ export default function AdminOrdersPage() {
       </div>
 
       <div className="mt-6 space-y-4">
-        {loading && <p className="py-12 text-center text-gray-400">Memuat...</p>}
+        {loading && <p className="py-12 text-center text-muted-foreground">Memuat...</p>}
         {!loading && filtered.map((order) => (
-          <div key={order.id} className={`rounded-xl border bg-white shadow-sm transition ${selected.has(order.id) ? "ring-2 ring-emerald-300" : ""}`}>
+          <div key={order.id} className={`rounded-xl border bg-white shadow-sm transition ${selected.has(order.id) ? "ring-2 ring-ring" : ""}`}>
             <div className="flex items-center px-6 py-4">
-              <input type="checkbox" checked={selected.has(order.id)} onChange={() => toggleOne(order.id)} className="mr-4 rounded border-gray-300 text-emerald-600" />
+              <input type="checkbox" checked={selected.has(order.id)} onChange={() => toggleOne(order.id)} className="mr-4 rounded border-border text-foreground" />
               <button
                 onClick={() => setExpanded(expanded === order.id ? null : order.id)}
                 className="flex flex-1 items-center justify-between text-left"
               >
                 <div className="flex items-center gap-4">
-                  <p className="font-semibold text-gray-800">{order.customer}</p>
-                  <span className={`rounded-lg px-2.5 py-0.5 text-xs font-semibold ${statusColor[order.status] || "bg-gray-100 text-gray-600"}`}>
+                  <p className="font-semibold text-foreground">{order.customer}</p>
+                  <span className={`rounded-lg px-2.5 py-0.5 text-xs font-semibold ${statusColor[order.status] || "bg-muted text-muted-foreground"}`}>
                     {order.status}
                   </span>
-                  <span className="text-xs text-gray-400">#{order.id.slice(-6)}</span>
+                  <span className="text-xs text-muted-foreground">#{order.id.slice(-6)}</span>
                 </div>
                 <div className="flex items-center gap-4 text-right">
                   <div>
-                    <p className="font-bold text-emerald-700">{formatPrice(order.total)}</p>
-                    <p className="text-xs text-gray-400">{new Date(order.createdAt).toLocaleDateString("id-ID")}</p>
+                    <p className="font-bold text-foreground">{formatPrice(order.total)}</p>
+                    <p className="text-xs text-muted-foreground">{new Date(order.createdAt).toLocaleDateString("id-ID")}</p>
                   </div>
-                  {expanded === order.id ? <ChevronUp className="h-4 w-4 text-gray-400" /> : <ChevronDown className="h-4 w-4 text-gray-400" />}
+                  {expanded === order.id ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
                 </div>
               </button>
             </div>
@@ -314,24 +314,24 @@ export default function AdminOrdersPage() {
               <div className="border-t px-6 py-4">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-500">Email</p>
-                    <p className="text-gray-800">{order.email}</p>
+                    <p className="text-muted-foreground">Email</p>
+                    <p className="text-foreground">{order.email}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">ID Pesanan</p>
-                    <p className="text-gray-800 font-mono text-xs">{order.id}</p>
+                    <p className="text-muted-foreground">ID Pesanan</p>
+                    <p className="text-foreground font-mono text-xs">{order.id}</p>
                   </div>
                 </div>
                 <div className="mt-4 space-y-2">
                   {order.items?.map((item) => (
                     <div key={item.id} className="flex justify-between text-sm">
-                      <span className="text-gray-600">{item.name} x{item.quantity}</span>
+                      <span className="text-muted-foreground">{item.name} x{item.quantity}</span>
                       <span className="font-medium">{formatPrice(item.price)}</span>
                     </div>
                   ))}
                 </div>
                 <div className="mt-4 flex items-center gap-3">
-                  <label className="text-sm text-gray-500">Ubah Status:</label>
+                  <label className="text-sm text-muted-foreground">Ubah Status:</label>
                   <select
                     value={order.status}
                     onChange={(e) => updateStatus(order.id, e.target.value)}
@@ -341,7 +341,7 @@ export default function AdminOrdersPage() {
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
-                  <button onClick={() => window.print()} className="ml-auto rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-500 transition hover:bg-gray-50">
+                  <button onClick={() => window.print()} className="ml-auto rounded-lg border border-border px-3 py-2 text-xs font-medium text-muted-foreground transition hover:bg-muted/50">
                     <Printer className="mr-1 inline h-3 w-3" /> Cetak
                   </button>
                 </div>
@@ -349,7 +349,7 @@ export default function AdminOrdersPage() {
             )}
           </div>
         ))}
-        {!loading && filtered.length === 0 && <p className="py-12 text-center text-gray-400">{search || statusFilter ? "Tidak ada pesanan yang cocok." : "Belum ada pesanan."}</p>}
+        {!loading && filtered.length === 0 && <p className="py-12 text-center text-muted-foreground">{search || statusFilter ? "Tidak ada pesanan yang cocok." : "Belum ada pesanan."}</p>}
       </div>
     </div>
   );

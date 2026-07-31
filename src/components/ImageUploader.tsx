@@ -53,20 +53,20 @@ export default function ImageUploader({ value, onChange }: Props) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">Gambar Produk</label>
+      <label className="block text-sm font-medium text-foreground mb-1">Gambar Produk</label>
       <div
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
         className={`relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 transition ${
-          dragOver ? "border-emerald-500 bg-emerald-50" : "border-gray-300 hover:border-emerald-400"
+          dragOver ? "border-border bg-muted" : "border-border hover:border-border"
         }`}
       >
         {uploading ? (
           <div className="flex flex-col items-center gap-2">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-600" />
-            <span className="text-sm text-gray-500">Mengunggah...</span>
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-border border-t-primary" />
+            <span className="text-sm text-muted-foreground">Mengunggah...</span>
           </div>
         ) : preview ? (
           <div className="relative w-full">
@@ -80,7 +80,7 @@ export default function ImageUploader({ value, onChange }: Props) {
             </button>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2 text-gray-400">
+          <div className="flex flex-col items-center gap-2 text-muted-foreground">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
@@ -91,7 +91,7 @@ export default function ImageUploader({ value, onChange }: Props) {
         <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif" onChange={handleFile} className="hidden" />
       </div>
       <div className="mt-2">
-        <label className="block text-xs font-medium text-gray-500">Atau masukkan URL gambar manual</label>
+        <label className="block text-xs font-medium text-muted-foreground">Atau masukkan URL gambar manual</label>
         <input
           type="text"
           value={value}

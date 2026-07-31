@@ -17,17 +17,17 @@ export default function HomeFAQ() {
   return (
     <div className="space-y-3">
       {faqs.map((faq, i) => (
-        <div key={i} className={`overflow-hidden rounded-sm border border-[#D5E0D3] bg-white shadow-sm transition-all ${open === i ? "shadow-md" : ""}`}>
+        <div key={i} className={`overflow-hidden rounded-sm border border-[#E4E4E7] bg-white shadow-sm transition-all ${open === i ? "shadow-md" : ""}`}>
           <button
             onClick={() => setOpen(open === i ? null : i)}
-            className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-[#EDF2ED]"
+            className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-[#F4F4F5]"
           >
-            <span className="font-serif font-bold text-[#1A3626]">{faq.q}</span>
-            <ChevronDown className={`h-5 w-5 shrink-0 text-[#ABC1A7] transition duration-200 ${open === i ? "rotate-180" : ""}`} strokeWidth={1.5} />
+            <span className="font-serif font-bold text-[#18181B]">{faq.q}</span>
+            <ChevronDown className={`h-5 w-5 shrink-0 text-[#A1A1AA] transition duration-200 ${open === i ? "rotate-180" : ""}`} strokeWidth={1.5} />
           </button>
           {open === i && (
-            <div className="border-t border-[#D5E0D3] px-6 py-5 animate-fade-in">
-              <p className="font-sans leading-relaxed text-[#5D8356]">{faq.a}</p>
+            <div className="border-t border-[#E4E4E7] px-6 py-5 animate-fade-in">
+              <p className="font-sans leading-relaxed text-[#52525B]">{faq.a}</p>
             </div>
           )}
         </div>

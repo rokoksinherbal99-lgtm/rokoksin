@@ -141,33 +141,33 @@ export default async function JournalArticlePage({ params }: Props) {
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#1A3626] via-[#2C4C3B] to-[#1A3626] py-16">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#18181B] via-[#3F3F46] to-[#18181B] py-16">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#2C4C3B]/30 blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
+          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#3F3F46]/30 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-foreground/5 blur-3xl" />
         </div>
         <div className="relative mx-auto max-w-3xl px-4">
-          <Link href="/journal" className="mb-6 inline-flex items-center gap-2 text-sm text-[#ABC1A7] transition hover:text-white">
+          <Link href="/journal" className="mb-6 inline-flex items-center gap-2 text-sm text-[#A1A1AA] transition hover:text-white">
             <ArrowLeft className="h-4 w-4" /> Kembali ke Jurnal
           </Link>
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#D5E0D3]/20 shadow-sm">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E4E4E7]/20 shadow-sm">
               <Icon className="h-6 w-6 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-sm font-semibold text-[#ABC1A7]">{article.category}</span>
-              <p className="text-xs text-[#ABC1A7]/60">{article.date} · {article.readTime}</p>
+              <span className="text-sm font-semibold text-[#A1A1AA]">{article.category}</span>
+              <p className="text-xs text-[#A1A1AA]/60">{article.date} · {article.readTime}</p>
             </div>
           </div>
           <h1 className="mt-6 text-3xl font-bold text-white md:text-4xl">{article.title}</h1>
-          <p className="mt-4 text-lg text-[#ABC1A7]">{article.excerpt}</p>
+          <p className="mt-4 text-lg text-[#A1A1AA]">{article.excerpt}</p>
         </div>
       </section>
 
       <article className="py-12">
         <div className="mx-auto max-w-3xl px-4">
           <div
-            className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-[#1A3626] prose-p:text-[#5D8356] prose-li:text-[#5D8356] prose-strong:text-[#2C4C3B] prose-a:text-[#2C4C3B]"
+            className="prose prose-sm max-w-none prose-headings:font-bold prose-headings:text-[#18181B] prose-p:text-[#52525B] prose-li:text-[#52525B] prose-strong:text-[#3F3F46] prose-a:text-[#3F3F46]"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
@@ -177,10 +177,10 @@ export default async function JournalArticlePage({ params }: Props) {
 
       <section className="pb-16">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <div className="rounded-sm bg-gradient-to-br from-[#EDF2ED] to-white border border-[#D5E0D3] p-8 shadow-sm">
-            <BookOpen className="mx-auto h-8 w-8 text-[#2C4C3B]" strokeWidth={1.5} />
-            <h2 className="mt-4 text-xl font-bold text-[#1A3626]">Artikel Terkait</h2>
-            <p className="mt-2 text-sm text-[#5D8356]">Baca artikel menarik lainnya seputar herbal dan gaya hidup sehat.</p>
+          <div className="rounded-sm bg-gradient-to-br from-[#F4F4F5] to-white border border-[#E4E4E7] p-8 shadow-sm">
+            <BookOpen className="mx-auto h-8 w-8 text-[#3F3F46]" strokeWidth={1.5} />
+            <h2 className="mt-4 text-xl font-bold text-[#18181B]">Artikel Terkait</h2>
+            <p className="mt-2 text-sm text-[#52525B]">Baca artikel menarik lainnya seputar herbal dan gaya hidup sehat.</p>
             <Link href="/journal" className="btn-primary mt-6">
               Lihat Semua Artikel
             </Link>

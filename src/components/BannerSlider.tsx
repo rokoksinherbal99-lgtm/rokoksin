@@ -13,8 +13,8 @@ const slides = [
     description: "Nikmati sensasi rokok herbal premium dengan racikan rempah pilihan Nusantara.",
     cta: "Pesan Sekarang",
     href: "/products",
-    gradient: "from-[#1A3626] via-[#2C4C3B] to-[#1A3626]",
-    accent: "text-[#ABC1A7]",
+    gradient: "from-[#18181B] via-[#3F3F46] to-[#18181B]",
+    accent: "text-[#A1A1AA]",
     image: "/images/sin-trust.jpg",
   },
   {
@@ -24,8 +24,8 @@ const slides = [
     description: "Kopi herbal dengan campuran jahe, madu, adas, dan kapulaga yang menyehatkan dan nikmat.",
     cta: "Pesan Sekarang",
     href: "/products/kopi-mana-kopi",
-    gradient: "from-[#2C4C3B] via-[#1A3626] to-[#2C4C3B]",
-    accent: "text-[#ABC1A7]",
+    gradient: "from-[#3F3F46] via-[#18181B] to-[#3F3F46]",
+    accent: "text-[#A1A1AA]",
     image: "/images/kopi-mana-kopi.jpg",
   },
 ];

@@ -76,80 +76,80 @@ export default async function ProductDetailPage({ params }: Props) {
     <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <nav className="mb-8 text-sm text-gray-400">
-        <Link href="/" className="transition hover:text-[#2C4C3B]">Beranda</Link>
+      <nav className="mb-8 text-sm text-muted-foreground">
+        <Link href="/" className="transition hover:text-foreground">Beranda</Link>
         <span className="mx-2">/</span>
-        <Link href="/products" className="transition hover:text-[#2C4C3B]">Produk</Link>
+        <Link href="/products" className="transition hover:text-foreground">Produk</Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-700 font-medium">{product.name}</span>
+        <span className="font-medium text-foreground">{product.name}</span>
       </nav>
 
       <div className="grid gap-10 md:grid-cols-2">
         <div className="group relative">
-          <div className="aspect-[4/3] overflow-hidden rounded-sm bg-gradient-to-br from-[#EDF2ED] to-[white] shadow-sm shadow-[#D5E0D3]/50">
+          <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted shadow-sm">
             <Image
               src={product.images}
               alt={product.name}
               fill
               unoptimized
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
               priority
             />
           </div>
         </div>
         <div className="flex flex-col">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-sm bg-[#D5E0D3] px-3 py-1 text-xs font-semibold text-[#2C4C3B]">
+            <span className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-secondary px-3 py-1 text-xs font-semibold text-foreground">
               <Package className="h-3.5 w-3.5" strokeWidth={1.5} />
               {product.category.name}
             </span>
             {productTypes[product.name] && (
-              <span className={`inline-flex items-center gap-1.5 rounded-sm px-3 py-1 text-xs font-semibold ${productTypes[product.name] === "SKT" ? "bg-amber-50 text-amber-700" : productTypes[product.name] === "SKM" ? "bg-blue-50 text-blue-700" : "bg-teal-50 text-teal-700"}`}>
+              <span className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-secondary px-3 py-1 text-xs font-semibold text-foreground">
                 <Tag className="h-3.5 w-3.5" strokeWidth={1.5} />
                 {productTypes[product.name]}
               </span>
             )}
           </div>
-          <h1 className="mt-3 text-3xl font-bold text-[#1A3626] md:text-4xl">{product.name}</h1>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">{product.name}</h1>
           <div className="mt-6 flex items-baseline gap-3">
-            <span className="text-4xl font-extrabold text-[#2C4C3B]">{formatPrice(product.price)}</span>
-            {product.stock > 0 && <span className="text-sm text-[#2C4C3B] font-medium">/ unit</span>}
+            <span className="text-4xl font-extrabold tracking-tight text-foreground">{formatPrice(product.price)}</span>
+            {product.stock > 0 && <span className="text-sm font-medium text-muted-foreground">/ unit</span>}
           </div>
-          <div className="mt-6 border-t border-[#D5E0D3] pt-6">
-            <p className="leading-relaxed text-[#5D8356]">{product.description}</p>
+          <div className="mt-6 border-t border-border pt-6">
+            <p className="leading-relaxed text-muted-foreground">{product.description}</p>
           </div>
-          <div className="mt-6 space-y-3 rounded-sm bg-gradient-to-br from-[#D5E0D3] to-[white] border border-[#ABC1A7] p-5">
+          <div className="mt-6 space-y-3 rounded-xl border border-border bg-card p-5 shadow-sm">
             {product.manufacturer && (
               <div className="flex items-center gap-3 text-sm">
-                <Shield className="h-4 w-4 text-[#2C4C3B] shrink-0" strokeWidth={1.5} />
-                <span className="text-[#5D8356]">Produsen: <strong className="text-[#1A3626]">{product.manufacturer}</strong></span>
+                <Shield className="h-4 w-4 shrink-0 text-foreground" strokeWidth={1.5} />
+                <span className="text-muted-foreground">Produsen: <strong className="text-foreground">{product.manufacturer}</strong></span>
               </div>
             )}
             <div className="flex items-center gap-3 text-sm">
-              <CheckCircle className="h-4 w-4 text-[#2C4C3B] shrink-0" strokeWidth={1.5} />
-              <span className="text-[#5D8356]">Stok: <strong className={product.stock <= 5 && product.stock > 0 ? "text-amber-600" : ""}>{product.stock > 10 ? "Tersedia" : product.stock > 0 ? `Stok Terbatas (sisa ${product.stock})` : "Habis"}</strong></span>
+              <CheckCircle className="h-4 w-4 shrink-0 text-foreground" strokeWidth={1.5} />
+              <span className="text-muted-foreground">Stok: <strong className={product.stock <= 5 && product.stock > 0 ? "text-foreground" : "text-foreground"}>{product.stock > 10 ? "Tersedia" : product.stock > 0 ? `Stok Terbatas (sisa ${product.stock})` : "Habis"}</strong></span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <span className="inline-flex items-center gap-1.5 rounded-sm border border-[#ABC1A7] bg-[#D5E0D3] px-2.5 py-1 text-xs font-semibold text-[#2C4C3B]">
+              <span className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-secondary px-2.5 py-1 text-xs font-semibold text-foreground">
                 <Shield className="h-3.5 w-3.5" strokeWidth={1.5} />
                 Bea & Cukai
               </span>
-              <span className="text-[#5D8356]">Produk terdaftar resmi</span>
+              <span className="text-muted-foreground">Produk terdaftar resmi</span>
             </div>
           </div>
 
           {/* Spesifikasi Produk */}
-          <div className="mt-6 rounded-sm border-[#D5E0D3] bg-[white] p-5 shadow-sm">
-            <h3 className="font-bold text-[#1A3626]">Spesifikasi Produk</h3>
+          <div className="mt-6 rounded-xl border border-border bg-card p-5 shadow-sm">
+            <h3 className="font-bold text-foreground">Spesifikasi Produk</h3>
             <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-              <div className="rounded-sm bg-[#EDF2ED] p-3">
-                <p className="text-xs text-[#5D8356]">Kategori</p>
-                <p className="font-semibold text-[#1A3626]">{product.category.name}</p>
+              <div className="rounded-lg bg-muted p-3">
+                <p className="text-xs text-muted-foreground">Kategori</p>
+                <p className="font-semibold text-foreground">{product.category.name}</p>
               </div>
-              <div className="rounded-sm bg-[#EDF2ED] p-3">
-                <p className="text-xs text-[#5D8356]">Jenis</p>
-                <p className="font-semibold text-[#1A3626]">{productTypes[product.name] || "-"}</p>
+              <div className="rounded-lg bg-muted p-3">
+                <p className="text-xs text-muted-foreground">Jenis</p>
+                <p className="font-semibold text-foreground">{productTypes[product.name] || "-"}</p>
               </div>
             </div>
           </div>
@@ -169,8 +169,8 @@ export default async function ProductDetailPage({ params }: Props) {
         <section className="mt-20">
           <div className="flex items-center justify-between">
             <div>
-              <span className="inline-block rounded-full border border-[#ABC1A7]/30 bg-[#D5E0D3]/50 px-5 py-1 font-serif text-sm font-semibold italic text-[#2C4C3B]">Terkait</span>
-              <h2 className="mt-2 text-2xl font-bold text-[#1A3626]">Produk Terkait</h2>
+              <span className="inline-block rounded-full border border-border bg-secondary/50 px-5 py-1 text-sm font-semibold text-muted-foreground">Terkait</span>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">Produk Terkait</h2>
             </div>
             <Link href="/products" className="btn-secondary text-sm gap-1">
               Lihat Semua

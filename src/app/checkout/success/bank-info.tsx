@@ -21,9 +21,9 @@ function CopyButton({ text }: { text: string }) {
           setTimeout(() => setCopied(false), 2000);
         } catch {}
       }}
-      className="ml-2 shrink-0 rounded-sm p-1 transition hover:bg-[#EDF2ED]"
+      className="ml-2 shrink-0 rounded-sm p-1 transition hover:bg-[#F4F4F5]"
     >
-      {copied ? <Check className="h-3.5 w-3.5 text-[#2C4C3B]" strokeWidth={2} /> : <span className="font-sans text-[10px] text-[#A8987F]">Salin</span>}
+      {copied ? <Check className="h-3.5 w-3.5 text-[#3F3F46]" strokeWidth={2} /> : <span className="font-sans text-[10px] text-[#A1A1AA]">Salin</span>}
     </button>
   );
 }
@@ -32,19 +32,19 @@ export function BankInfo({ orderId, total }: { orderId: string; total: string })
   const waMsg = `Halo Sin Herbal! Saya sudah transfer untuk pesanan:\n\n🆔 Order ID: ${orderId}\n💰 Total: Rp ${parseInt(total || "0").toLocaleString("id-ID")}\n\nBerikut bukti transfernya:`;
 
   return (
-    <div className="mx-auto mt-6 max-w-sm rounded-sm border border-[#E0D7C5] bg-[#FDFBF7] p-5 shadow-sm text-left">
-      <h3 className="font-serif font-bold tracking-tight text-[#2C2416]">Transfer Pembayaran</h3>
-      <p className="mt-1 font-sans text-xs text-[#A8987F]">Transfer sejumlah <strong className="text-[#2C2416]">Rp {parseInt(total || "0").toLocaleString("id-ID")}</strong> ke salah satu rekening berikut:</p>
+    <div className="mx-auto mt-6 max-w-sm rounded-sm border border-[#E4E4E7] bg-[#FFFFFF] p-5 shadow-sm text-left">
+      <h3 className="font-serif font-bold tracking-tight text-[#18181B]">Transfer Pembayaran</h3>
+      <p className="mt-1 font-sans text-xs text-[#A1A1AA]">Transfer sejumlah <strong className="text-[#18181B]">Rp {parseInt(total || "0").toLocaleString("id-ID")}</strong> ke salah satu rekening berikut:</p>
 
       <div className="mt-4 space-y-3">
         {BANKS.map((bank) => (
-          <div key={bank.name} className="flex items-center justify-between rounded-sm border border-[#E0D7C5] bg-[#F9F6F0] p-3">
+          <div key={bank.name} className="flex items-center justify-between rounded-sm border border-[#E4E4E7] bg-[#FAFAFA] p-3">
             <div className="flex items-center gap-3">
-              <bank.icon className="h-5 w-5 text-[#2C4C3B]" strokeWidth={1.5} />
+              <bank.icon className="h-5 w-5 text-[#3F3F46]" strokeWidth={1.5} />
               <div>
-                <p className="font-sans text-sm font-semibold text-[#2C2416]">{bank.name}</p>
-                <p className="font-mono text-sm text-[#2C2416]">{bank.account}</p>
-                <p className="font-sans text-[10px] text-[#A8987F]">a.n. Sin Herbal</p>
+                <p className="font-sans text-sm font-semibold text-[#18181B]">{bank.name}</p>
+                <p className="font-mono text-sm text-[#18181B]">{bank.account}</p>
+                <p className="font-sans text-[10px] text-[#A1A1AA]">a.n. Sin Herbal</p>
               </div>
             </div>
             <CopyButton text={bank.account} />
@@ -61,7 +61,7 @@ export function BankInfo({ orderId, total }: { orderId: string; total: string })
         <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
         Konfirmasi Pembayaran via WA
       </a>
-      <p className="mt-2 font-sans text-[10px] text-[#C4B8A2] text-center">Kirim bukti transfer setelah melakukan pembayaran</p>
+      <p className="mt-2 font-sans text-[10px] text-[#A1A1AA] text-center">Kirim bukti transfer setelah melakukan pembayaran</p>
     </div>
   );
 }

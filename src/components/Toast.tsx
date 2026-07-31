@@ -55,9 +55,9 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: () => void }) {
   };
   const Icon = icons[toast.type];
   const colors = {
-    success: "bg-[#EDF2ED] border-[#ABC1A7] text-[#1A3626]",
+    success: "bg-[#F4F4F5] border-[#A1A1AA] text-[#18181B]",
     error: "bg-[#F0EDED] border-[#D5C5C5] text-[#8B3A2A]",
-    info: "bg-white border-[#D5E0D3] text-[#1A3626]",
+    info: "bg-white border-[#E4E4E7] text-[#18181B]",
   };
 
   return (

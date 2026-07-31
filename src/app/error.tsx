@@ -15,14 +15,14 @@ export default function Error({
       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50">
         <AlertTriangle className="h-10 w-10 text-red-400" strokeWidth={1.5} />
       </div>
-      <h1 className="font-serif text-2xl font-bold tracking-tight text-[#2C2416]">Ada yang Tidak Beres</h1>
-      <p className="mt-2 max-w-sm font-sans text-sm text-[#5D8356]">
+      <h1 className="font-serif text-2xl font-bold tracking-tight text-[#18181B]">Ada yang Tidak Beres</h1>
+      <p className="mt-2 max-w-sm font-sans text-sm text-[#52525B]">
         Terjadi kesalahan yang tidak terduga. Jika masalah berlanjut, hubungi kami via WhatsApp.
       </p>
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <button
           onClick={reset}
-          className="inline-flex items-center gap-2 rounded-sm bg-[#1A3626] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#2C4C3B]"
+          className="inline-flex items-center gap-2 rounded-sm bg-[#18181B] px-6 py-3 font-sans text-sm font-semibold text-white transition hover:bg-[#3F3F46]"
         >
           <Home className="h-4 w-4" strokeWidth={1.5} />
           Coba Lagi

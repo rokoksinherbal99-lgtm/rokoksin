@@ -62,57 +62,57 @@ export default function NewProductPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold text-gray-800">Tambah Produk</h1>
+      <h1 className="text-2xl font-bold text-foreground">Tambah Produk</h1>
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Nama Produk</label>
+            <label className="block text-sm font-medium text-foreground">Nama Produk</label>
             <input required value={form.name} onChange={(e) => update("name", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Slug</label>
+            <label className="block text-sm font-medium text-foreground">Slug</label>
             <input required value={form.slug} onChange={(e) => update("slug", e.target.value)} pattern="[a-z0-9-]+" className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Harga (Rp)</label>
+            <label className="block text-sm font-medium text-foreground">Harga (Rp)</label>
             <input required type="number" min="0" value={form.price} onChange={(e) => update("price", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Stok</label>
+            <label className="block text-sm font-medium text-foreground">Stok</label>
             <input required type="number" min="0" value={form.stock} onChange={(e) => update("stock", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Deskripsi</label>
+          <label className="block text-sm font-medium text-foreground">Deskripsi</label>
           <textarea required value={form.description} onChange={(e) => update("description", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" rows={3} />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Kategori</label>
+          <label className="block text-sm font-medium text-foreground">Kategori</label>
           <select value={form.categoryId} onChange={(e) => update("categoryId", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm">
             {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             {categories.length === 0 && <option value="">-- Pilih Kategori --</option>}
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">No. Batch</label>
+          <label className="block text-sm font-medium text-foreground">No. Batch</label>
           <input value={form.batchNumber} onChange={(e) => update("batchNumber", e.target.value)} placeholder="Contoh: BCH-2026-001" className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Produsen</label>
+          <label className="block text-sm font-medium text-foreground">Produsen</label>
           <input value={form.manufacturer} onChange={(e) => update("manufacturer", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
         </div>
         <ImageUploader value={form.images} onChange={(val) => update("images", val)} />
         <div className="flex items-center gap-2">
-          <input type="checkbox" checked={form.featured} onChange={(e) => update("featured", e.target.checked)} id="featured" className="rounded border-gray-300 text-emerald-600" />
-          <label htmlFor="featured" className="text-sm font-medium text-gray-700">Produk Unggulan</label>
+          <input type="checkbox" checked={form.featured} onChange={(e) => update("featured", e.target.checked)} id="featured" className="rounded border-border text-foreground" />
+          <label htmlFor="featured" className="text-sm font-medium text-foreground">Produk Unggulan</label>
         </div>
         <div className="flex gap-3">
-          <button type="submit" disabled={loading} className="rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:from-emerald-500 hover:to-emerald-400 active:scale-[0.97] disabled:opacity-50">
+          <button type="submit" disabled={loading} className="rounded-xl bg-gradient-to-r from-foreground to-muted-foreground px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:from-foreground hover:to-muted-foreground active:scale-[0.97] disabled:opacity-50">
             {loading ? "Menyimpan..." : "Simpan"}
           </button>
-          <button type="button" onClick={() => router.back()} className="rounded-xl border border-gray-200 bg-white px-6 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50">
+          <button type="button" onClick={() => router.back()} className="rounded-xl border border-border bg-white px-6 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
             Batal
           </button>
         </div>

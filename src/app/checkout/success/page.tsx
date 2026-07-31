@@ -18,11 +18,11 @@ export default async function SuccessPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#D5E0D3]">
-        <CheckCircle className="h-10 w-10 text-[#2C4C3B]" strokeWidth={1.5} />
+      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#E4E4E7]">
+        <CheckCircle className="h-10 w-10 text-[#3F3F46]" strokeWidth={1.5} />
       </div>
-      <h1 className="font-serif text-2xl font-bold tracking-tight text-[#2C2416]">Pesanan Berhasil!</h1>
-      <p className="mt-2 font-sans text-sm text-[#A8987F]">
+      <h1 className="font-serif text-2xl font-bold tracking-tight text-[#18181B]">Pesanan Berhasil!</h1>
+      <p className="mt-2 font-sans text-sm text-[#A1A1AA]">
         Terima kasih! Pesanan Anda telah tercatat. Langkah selanjutnya:
       </p>
       <CopyOrderIdButton orderId={orderId} />
@@ -31,20 +31,20 @@ export default async function SuccessPage({ searchParams }: Props) {
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link
           href="/lacak-pesanan"
-          className="inline-flex items-center gap-2 rounded-sm border-2 border-[#2C4C3B] bg-[#FDFBF7] px-6 py-3 font-sans font-semibold text-[#2C4C3B] transition hover:bg-[#D5E0D3]"
+          className="inline-flex items-center gap-2 rounded-sm border-2 border-[#3F3F46] bg-[#FFFFFF] px-6 py-3 font-sans font-semibold text-[#3F3F46] transition hover:bg-[#E4E4E7]"
         >
           <Search className="h-4 w-4" strokeWidth={1.5} />
           Lacak Pesanan
         </Link>
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 rounded-sm bg-[#1A3626] px-6 py-3 font-sans font-semibold text-[#F9F6F0] transition hover:bg-[#2C4C3B]"
+          className="inline-flex items-center gap-2 rounded-sm bg-[#18181B] px-6 py-3 font-sans font-semibold text-[#FAFAFA] transition hover:bg-[#3F3F46]"
         >
           Lanjut Belanja
         </Link>
       </div>
-      <div className="mt-6 rounded-sm border border-[#D5E0D3] bg-[#EDF2ED]/50 p-4 text-center">
-        <p className="font-sans text-xs text-[#5D8356]">
+      <div className="mt-6 rounded-sm border border-[#E4E4E7] bg-[#F4F4F5]/50 p-4 text-center">
+        <p className="font-sans text-xs text-[#52525B]">
           Ada pertanyaan?{" "}
           <a
             href={`https://wa.me/6285161835757?text=${encodeURIComponent(`Halo! Saya ingin tanya tentang pesanan ${orderId}.`)}`}

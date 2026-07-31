@@ -64,38 +64,38 @@ export default function FAQPage() {
     <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     <div>
-      <section className="bg-gradient-to-b from-emerald-50 to-white py-20">
+      <section className="bg-gradient-to-b from-muted/50 to-background py-20">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-200">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-foreground to-muted-foreground shadow-lg shadow-foreground/5">
             <HelpCircle className="h-8 w-8 text-white" />
           </div>
-          <span className="inline-block rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">FAQ</span>
-          <h1 className="mt-3 text-4xl font-bold text-gray-900">Pertanyaan Umum</h1>
-          <p className="mt-2 text-gray-500">Temukan jawaban untuk pertanyaan yang sering diajukan.</p>
+          <span className="inline-block rounded-full bg-muted px-4 py-1 text-sm font-semibold text-foreground">FAQ</span>
+          <h1 className="mt-3 text-4xl font-bold text-foreground">Pertanyaan Umum</h1>
+          <p className="mt-2 text-muted-foreground">Temukan jawaban untuk pertanyaan yang sering diajukan.</p>
         </div>
       </section>
 
       <section className="py-16">
         <div className="mx-auto max-w-3xl px-4 space-y-3">
           {allFaqs.map((faq, i) => (
-            <div key={i} className={`overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all ${open === i ? "shadow-md" : ""}`}>
+            <div key={i} className={`overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-all ${open === i ? "shadow-md" : ""}`}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-gray-50/50"
+                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-muted/50"
               >
-                <span className="font-semibold text-gray-900">{faq.q}</span>
-                <ChevronDown className={`h-5 w-5 shrink-0 text-gray-400 transition duration-200 ${open === i ? "rotate-180" : ""}`} />
+                <span className="font-semibold text-foreground">{faq.q}</span>
+                <ChevronDown className={`h-5 w-5 shrink-0 text-muted-foreground transition duration-200 ${open === i ? "rotate-180" : ""}`} />
               </button>
               {open === i && (
-                <div className="border-t border-gray-100 px-6 py-5 animate-fade-in">
-                  <p className="leading-relaxed text-gray-600">{faq.a}</p>
+                <div className="border-t border-border px-6 py-5 animate-fade-in">
+                  <p className="leading-relaxed text-muted-foreground">{faq.a}</p>
                 </div>
               )}
             </div>
           ))}
         </div>
-        <div className="mx-auto max-w-3xl px-4 mt-10 text-center rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 p-8">
-          <p className="text-gray-600">Masih punya pertanyaan? Hubungi kami langsung</p>
+        <div className="mx-auto max-w-3xl px-4 mt-10 text-center rounded-2xl bg-gradient-to-br from-muted/50 to-background border border-border p-8">
+          <p className="text-muted-foreground">Masih punya pertanyaan? Hubungi kami langsung</p>
           <Link href="/kontak" className="btn-primary mt-4 gap-2 inline-flex">
             Hubungi Kami
           </Link>

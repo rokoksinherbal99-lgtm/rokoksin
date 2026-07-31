@@ -32,7 +32,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     router.push("/admin");
   };
 
-  if (loading) return <div className="flex min-h-screen items-center justify-center text-gray-400">Memuat...</div>;
+  if (loading) return <div className="flex min-h-screen items-center justify-center text-muted-foreground">Memuat...</div>;
   if (!authed && pathname !== "/admin") { router.push("/admin"); return null; }
   if (pathname === "/admin" && !authed) return <ToastProvider>{children}</ToastProvider>;
 
@@ -52,8 +52,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         >
           {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
-        <aside className={`flex w-56 flex-col border-r bg-gray-50 p-4 transition-transform md:relative md:translate-x-0 ${sidebarOpen ? "fixed inset-y-0 left-0 z-40 translate-x-0" : "fixed -translate-x-full md:translate-x-0"}`}>
-          <Link href="/" className="mb-8 mt-6 flex items-center gap-2 text-lg font-bold text-green-800 md:mt-0">
+        <aside className={`flex w-56 flex-col border-r bg-muted/50 p-4 transition-transform md:relative md:translate-x-0 ${sidebarOpen ? "fixed inset-y-0 left-0 z-40 translate-x-0" : "fixed -translate-x-full md:translate-x-0"}`}>
+          <Link href="/" className="mb-8 mt-6 flex items-center gap-2 text-lg font-bold text-foreground md:mt-0">
             Sin Herbal
           </Link>
           <nav className="flex flex-col gap-2">
@@ -64,7 +64,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   key={item.href}
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${pathname.startsWith(item.href) ? "bg-green-100 text-green-800" : "text-gray-600 hover:bg-gray-100"}`}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${pathname.startsWith(item.href) ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted"}`}
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
@@ -73,7 +73,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             })}
           </nav>
           <div className="mt-auto space-y-1">
-            <Link href="/admin/change-password" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100">
+            <Link href="/admin/change-password" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted">
               <KeyRound className="h-4 w-4" /> Ganti Password
             </Link>
             <button onClick={logout} className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50">
