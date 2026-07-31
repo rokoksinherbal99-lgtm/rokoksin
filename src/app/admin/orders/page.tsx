@@ -22,10 +22,10 @@ const STATUSES = ["pending", "confirmed", "shipped", "delivered", "cancelled"];
 
 const statusColor: Record<string, string> = {
   pending: "bg-muted text-foreground",
-  confirmed: "bg-blue-100 text-blue-700",
-  shipped: "bg-purple-100 text-purple-700",
-  delivered: "bg-muted text-foreground",
-  cancelled: "bg-red-100 text-red-700",
+  confirmed: "bg-blue-50 text-blue-700",
+  shipped: "bg-purple-50 text-purple-700",
+  delivered: "bg-emerald-50 text-emerald-700",
+  cancelled: "bg-red-50 text-red-700",
 };
 
 export default function AdminOrdersPage() {
@@ -208,35 +208,35 @@ export default function AdminOrdersPage() {
         <div className="flex items-center gap-3">
           {selected.size > 0 && (
             <>
-              <button onClick={() => bulkUpdateStatus("shipped")} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-purple-200 bg-purple-50 px-4 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-100 disabled:opacity-50">
+              <button onClick={() => bulkUpdateStatus("shipped")} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-lg border border-purple-200 bg-purple-50 px-4 py-2.5 text-sm font-semibold text-purple-700 transition hover:bg-purple-100 disabled:opacity-50">
                 <Check className="h-4 w-4" /> {bulkLoading ? "Memproses..." : `Kirim (${selected.size})`}
               </button>
-              <button onClick={bulkPrint} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50 disabled:opacity-50">
+              <button onClick={bulkPrint} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50 disabled:opacity-50">
                 <Printer className="h-4 w-4" /> Cetak ({selected.size})
               </button>
-              <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-50">
+              <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-semibold text-red-700 transition hover:bg-red-100 disabled:opacity-50">
                 <X className="h-4 w-4" /> {bulkLoading ? "Memproses..." : `Hapus (${selected.size})`}
               </button>
             </>
           )}
-          <button onClick={() => setShowManual(!showManual)} className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
+          <button onClick={() => setShowManual(!showManual)} className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
             <Plus className="h-4 w-4" /> Tambah Pesanan Manual
           </button>
         </div>
       </div>
 
       {showManual && (
-        <div className="mt-6 rounded-2xl border border-border bg-muted p-6">
+        <div className="mt-6 rounded-xl border border-border bg-card p-6">
           <h2 className="font-bold text-foreground flex items-center gap-2"><MessageCircle className="h-5 w-5 text-foreground" /> Tambah Pesanan dari WhatsApp</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <input value={custName} onChange={(e) => setCustName(e.target.value)} placeholder="Nama pelanggan" className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
-            <input value={custPhone} onChange={(e) => setCustPhone(e.target.value)} placeholder="No. WhatsApp (opsional)" className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
+            <input value={custName} onChange={(e) => setCustName(e.target.value)} placeholder="Nama pelanggan" className="rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
+            <input value={custPhone} onChange={(e) => setCustPhone(e.target.value)} placeholder="No. WhatsApp (opsional)" className="rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
           </div>
           <div className="mt-4">
             <label className="text-sm font-medium text-muted-foreground">Tambah Produk</label>
             <select
               onChange={(e) => { if (e.target.value) { addToCart(e.target.value); e.target.value = ""; } }}
-              className="mt-1 w-full rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border"
+              className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20"
             >
               <option value="">-- Pilih produk --</option>
               {products.map((p) => <option key={p.id} value={p.id}>{p.name} — {formatPrice(p.price)} (stok: {p.stock})</option>)}
@@ -245,7 +245,7 @@ export default function AdminOrdersPage() {
           {cart.length > 0 && (
             <div className="mt-4 space-y-2">
               {cart.map((c) => (
-                <div key={c.productId} className="flex items-center justify-between rounded-xl bg-white px-4 py-2.5 shadow-sm">
+                <div key={c.productId} className="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-2.5">
                   <div className="flex items-center gap-3">
                     <span className="font-medium text-foreground">{c.name}</span>
                     <span className="text-sm text-muted-foreground">x{c.quantity}</span>
@@ -256,17 +256,17 @@ export default function AdminOrdersPage() {
                   </button>
                 </div>
               ))}
-              <div className="flex items-center justify-between rounded-xl bg-muted px-4 py-3">
+              <div className="flex items-center justify-between rounded-lg bg-card px-4 py-3 ring-1 ring-border">
                 <span className="font-bold text-foreground">Total</span>
                 <span className="font-bold text-foreground">{formatPrice(cart.reduce((s, c) => s + c.price * c.quantity, 0))}</span>
               </div>
             </div>
           )}
           <div className="mt-4 flex gap-3">
-            <button onClick={saveManualOrder} disabled={saving || !custName || cart.length === 0} className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 disabled:opacity-50">
+            <button onClick={saveManualOrder} disabled={saving || !custName || cart.length === 0} className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 disabled:opacity-50">
               {saving ? "Menyimpan..." : "Simpan Pesanan"}
             </button>
-            <button onClick={() => { setShowManual(false); setCart([]); setCustName(""); setCustPhone(""); }} className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-5 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
+            <button onClick={() => { setShowManual(false); setCart([]); setCustName(""); setCustPhone(""); }} className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
               Batal
             </button>
           </div>
@@ -276,9 +276,9 @@ export default function AdminOrdersPage() {
       <div className="mt-4 flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari customer, email, atau ID..." className="w-full rounded-lg border py-2 pl-9 pr-3 text-sm" />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari customer, email, atau ID..." className="w-full rounded-lg border border-border bg-card py-2 pl-9 pr-3 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
         </div>
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-lg border px-3 py-2 text-sm">
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-lg border border-border bg-card px-3 py-2 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20">
           <option value="">Semua Status</option>
           {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -287,7 +287,7 @@ export default function AdminOrdersPage() {
       <div className="mt-6 space-y-4">
         {loading && <p className="py-12 text-center text-muted-foreground">Memuat...</p>}
         {!loading && filtered.map((order) => (
-          <div key={order.id} className={`rounded-xl border bg-white shadow-sm transition ${selected.has(order.id) ? "ring-2 ring-ring" : ""}`}>
+          <div key={order.id} className={`rounded-xl border border-border bg-card transition ${selected.has(order.id) ? "ring-2 ring-ring" : ""}`}>
             <div className="flex items-center px-6 py-4">
               <input type="checkbox" checked={selected.has(order.id)} onChange={() => toggleOne(order.id)} className="mr-4 rounded border-border text-foreground" />
               <button
@@ -296,7 +296,7 @@ export default function AdminOrdersPage() {
               >
                 <div className="flex items-center gap-4">
                   <p className="font-semibold text-foreground">{order.customer}</p>
-                  <span className={`rounded-lg px-2.5 py-0.5 text-xs font-semibold ${statusColor[order.status] || "bg-muted text-muted-foreground"}`}>
+                  <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${statusColor[order.status] || "bg-muted text-muted-foreground"}`}>
                     {order.status}
                   </span>
                   <span className="text-xs text-muted-foreground">#{order.id.slice(-6)}</span>
@@ -335,13 +335,13 @@ export default function AdminOrdersPage() {
                   <select
                     value={order.status}
                     onChange={(e) => updateStatus(order.id, e.target.value)}
-                    className="rounded-xl border px-4 py-2 text-sm"
+                    className="rounded-lg border border-border bg-card px-4 py-2 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20"
                   >
                     {STATUSES.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
-                  <button onClick={() => window.print()} className="ml-auto rounded-lg border border-border px-3 py-2 text-xs font-medium text-muted-foreground transition hover:bg-muted/50">
+                  <button onClick={() => window.print()} className="ml-auto rounded-lg border border-border bg-card px-3 py-2 text-xs font-medium text-muted-foreground transition hover:bg-muted/50">
                     <Printer className="mr-1 inline h-3 w-3" /> Cetak
                   </button>
                 </div>

@@ -58,20 +58,20 @@ export default function ChangePasswordPage() {
       <h1 className="mb-6 text-2xl font-bold text-foreground">Ganti Password</h1>
 
       {error && (
-        <div className="mb-4 flex items-start gap-2.5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="mb-4 flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="mb-4 flex items-start gap-2.5 rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground">
+        <div className="mb-4 flex items-start gap-2.5 rounded-lg border border-border bg-muted px-4 py-3 text-sm text-foreground">
           <CheckCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-border bg-card p-6">
         <div>
           <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Password Saat Ini</label>
           <div className="relative">
@@ -79,7 +79,7 @@ export default function ChangePasswordPage() {
               type={showCurrent ? "text" : "password"}
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 pr-10 text-sm transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
+              className="w-full rounded-lg border border-border bg-card px-4 py-3 pr-10 text-sm transition focus:border-border focus:ring-2 focus:ring-ring/20 focus:outline-none"
               autoComplete="current-password"
               disabled={loading}
             />
@@ -96,7 +96,7 @@ export default function ChangePasswordPage() {
               type={showNew ? "text" : "password"}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 pr-10 text-sm transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
+              className="w-full rounded-lg border border-border bg-card px-4 py-3 pr-10 text-sm transition focus:border-border focus:ring-2 focus:ring-ring/20 focus:outline-none"
               autoComplete="new-password"
               disabled={loading}
             />
@@ -113,7 +113,7 @@ export default function ChangePasswordPage() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full rounded-xl border border-border bg-muted/50 px-4 py-3 text-sm transition focus:border-border focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring/20"
+            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-sm transition focus:border-border focus:ring-2 focus:ring-ring/20 focus:outline-none"
             autoComplete="new-password"
             disabled={loading}
           />

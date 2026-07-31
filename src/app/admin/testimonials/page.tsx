@@ -97,20 +97,20 @@ export default function AdminTestimonials() {
           <h1 className="text-2xl font-bold text-foreground">Testimoni</h1>
           <p className="mt-1 text-sm text-muted-foreground">Kelola testimoni pelanggan</p>
         </div>
-        <button onClick={() => { reset(); setShowForm(true); }} className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90">
+        <button onClick={() => { reset(); setShowForm(true); }} className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
           <Plus className="h-4 w-4" /> Tambah Testimoni
         </button>
       </div>
 
       {showForm && (
-        <div className="mt-6 rounded-2xl border border-border bg-muted p-6">
+        <div className="mt-6 rounded-xl border border-border bg-card p-6">
           <div className="grid gap-4 md:grid-cols-2">
-            <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nama pelanggan" className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
-            <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Kota" className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
+            <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nama pelanggan" className="rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
+            <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Kota" className="rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
             <div className="md:col-span-2">
-              <textarea value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} placeholder="Teks testimoni" rows={3} className="w-full rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border" />
+              <textarea value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} placeholder="Teks testimoni" rows={3} className="w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
             </div>
-            <select value={form.productId} onChange={(e) => setForm({ ...form, productId: e.target.value })} className="rounded-xl border border-border bg-white px-4 py-2.5 text-sm outline-none transition focus:border-border">
+            <select value={form.productId} onChange={(e) => setForm({ ...form, productId: e.target.value })} className="rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20">
               <option value="">-- Pilih produk (opsional) --</option>
               {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
@@ -130,10 +130,10 @@ export default function AdminTestimonials() {
             </div>
           </div>
           <div className="mt-4 flex gap-3">
-            <button onClick={save} disabled={loading || !form.name || !form.text} className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 disabled:opacity-50">
+            <button onClick={save} disabled={loading || !form.name || !form.text} className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 disabled:opacity-50">
               <Check className="h-4 w-4" /> {edit ? "Simpan" : "Tambah"}
             </button>
-            <button onClick={reset} className="inline-flex items-center gap-2 rounded-xl border border-border bg-white px-5 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
+            <button onClick={reset} className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
               <X className="h-4 w-4" /> Batal
             </button>
           </div>
@@ -143,7 +143,7 @@ export default function AdminTestimonials() {
       <div className="mt-6 space-y-3">
         {fetching && <p className="text-center text-sm text-muted-foreground py-10">Memuat...</p>}
         {!fetching && list.map((t) => (
-          <div key={t.id} className="flex items-start gap-4 rounded-xl border bg-white p-5 shadow-sm">
+          <div key={t.id} className="flex items-start gap-4 rounded-xl border border-border bg-card p-5">
             <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-muted">
               {t.productImage ? (
                 <img src={t.productImage} alt={t.productName || t.name} className="h-full w-full object-cover" />
@@ -154,7 +154,7 @@ export default function AdminTestimonials() {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <p className="font-semibold text-foreground">{t.name}</p>
-                {!t.visible && <span className="rounded-lg bg-muted px-2 py-0.5 text-xs text-muted-foreground">Disembunyikan</span>}
+                {!t.visible && <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">Disembunyikan</span>}
               </div>
               <p className="mt-0.5 text-xs text-muted-foreground">{t.productName || "—"} &middot; {t.city}</p>
               <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground line-clamp-2">{t.text}</p>

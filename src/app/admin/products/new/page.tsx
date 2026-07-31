@@ -61,47 +61,47 @@ export default function NewProductPage() {
   };
 
   return (
-    <div className="max-w-2xl">
+    <div className="mx-auto max-w-2xl">
       <h1 className="text-2xl font-bold text-foreground">Tambah Produk</h1>
-      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4 rounded-xl border border-border bg-card p-6">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-foreground">Nama Produk</label>
-            <input required value={form.name} onChange={(e) => update("name", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
+            <input required value={form.name} onChange={(e) => update("name", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
           </div>
           <div>
             <label className="block text-sm font-medium text-foreground">Slug</label>
-            <input required value={form.slug} onChange={(e) => update("slug", e.target.value)} pattern="[a-z0-9-]+" className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
+            <input required value={form.slug} onChange={(e) => update("slug", e.target.value)} pattern="[a-z0-9-]+" className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-foreground">Harga (Rp)</label>
-            <input required type="number" min="0" value={form.price} onChange={(e) => update("price", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
+            <input required type="number" min="0" value={form.price} onChange={(e) => update("price", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
           </div>
           <div>
             <label className="block text-sm font-medium text-foreground">Stok</label>
-            <input required type="number" min="0" value={form.stock} onChange={(e) => update("stock", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
+            <input required type="number" min="0" value={form.stock} onChange={(e) => update("stock", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
           </div>
         </div>
         <div>
           <label className="block text-sm font-medium text-foreground">Deskripsi</label>
-          <textarea required value={form.description} onChange={(e) => update("description", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" rows={3} />
+          <textarea required value={form.description} onChange={(e) => update("description", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" rows={3} />
         </div>
         <div>
           <label className="block text-sm font-medium text-foreground">Kategori</label>
-          <select value={form.categoryId} onChange={(e) => update("categoryId", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm">
+          <select value={form.categoryId} onChange={(e) => update("categoryId", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20">
             {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             {categories.length === 0 && <option value="">-- Pilih Kategori --</option>}
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium text-foreground">No. Batch</label>
-          <input value={form.batchNumber} onChange={(e) => update("batchNumber", e.target.value)} placeholder="Contoh: BCH-2026-001" className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
+          <input value={form.batchNumber} onChange={(e) => update("batchNumber", e.target.value)} placeholder="Contoh: BCH-2026-001" className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
         </div>
         <div>
           <label className="block text-sm font-medium text-foreground">Produsen</label>
-          <input value={form.manufacturer} onChange={(e) => update("manufacturer", e.target.value)} className="mt-1 w-full rounded-xl border px-4 py-2.5 text-sm" />
+          <input value={form.manufacturer} onChange={(e) => update("manufacturer", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
         </div>
         <ImageUploader value={form.images} onChange={(val) => update("images", val)} />
         <div className="flex items-center gap-2">
@@ -109,10 +109,10 @@ export default function NewProductPage() {
           <label htmlFor="featured" className="text-sm font-medium text-foreground">Produk Unggulan</label>
         </div>
         <div className="flex gap-3">
-          <button type="submit" disabled={loading} className="rounded-xl bg-gradient-to-r from-foreground to-muted-foreground px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:from-foreground hover:to-muted-foreground active:scale-[0.97] disabled:opacity-50">
+          <button type="submit" disabled={loading} className="rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97] disabled:opacity-50">
             {loading ? "Menyimpan..." : "Simpan"}
           </button>
-          <button type="button" onClick={() => router.back()} className="rounded-xl border border-border bg-white px-6 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
+          <button type="button" onClick={() => router.back()} className="rounded-lg border border-border bg-card px-6 py-2.5 text-sm font-semibold text-muted-foreground transition hover:bg-muted/50">
             Batal
           </button>
         </div>

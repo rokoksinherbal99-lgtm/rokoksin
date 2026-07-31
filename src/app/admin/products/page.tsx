@@ -109,11 +109,11 @@ export default function AdminProductsPage() {
         </div>
         <div className="flex items-center gap-3">
           {selected.size > 0 && (
-            <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100 disabled:opacity-50">
+            <button onClick={bulkDelete} disabled={bulkLoading} className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-100 disabled:opacity-50">
               <Trash2 className="h-4 w-4" /> {bulkLoading ? "Menghapus..." : `Hapus (${selected.size})`}
             </button>
           )}
-          <Link href="/admin/products/new" className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
+          <Link href="/admin/products/new" className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 active:scale-[0.97]">
             <Plus className="h-4 w-4" /> Tambah Produk
           </Link>
         </div>
@@ -122,30 +122,30 @@ export default function AdminProductsPage() {
       <div className="mt-4 flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari produk..." className="w-full rounded-lg border py-2 pl-9 pr-3 text-sm" />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari produk..." className="w-full rounded-lg border border-border bg-card py-2 pl-9 pr-3 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
         </div>
-        <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="rounded-lg border px-3 py-2 text-sm">
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="rounded-lg border border-border bg-card px-3 py-2 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20">
           <option value="name">Nama</option>
           <option value="price">Harga</option>
           <option value="stock">Stok</option>
         </select>
-        <button onClick={() => setSortDir(sortDir === "asc" ? "desc" : "asc")} className="rounded-lg border px-3 py-2 text-sm">
+        <button onClick={() => setSortDir(sortDir === "asc" ? "desc" : "asc")} className="rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground">
           {sortDir === "asc" ? "↑" : "↓"}
         </button>
       </div>
 
-      <div className="mt-4 overflow-x-auto rounded-xl border bg-white shadow-sm">
+      <div className="mt-4 overflow-x-auto rounded-xl border border-border bg-card">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-muted/50">
-            <tr>
+          <thead>
+            <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
               <th className="px-4 py-3">
                 <input type="checkbox" onChange={toggleAll} checked={selected.size === filtered.length && filtered.length > 0} className="rounded border-border text-foreground" />
               </th>
-              <th className="px-4 py-3 font-medium text-muted-foreground">Nama</th>
-              <th className="px-4 py-3 font-medium text-muted-foreground">Harga</th>
-              <th className="px-4 py-3 font-medium text-muted-foreground">Stok</th>
-              <th className="px-4 py-3 font-medium text-muted-foreground">Unggulan</th>
-              <th className="px-4 py-3 font-medium text-muted-foreground">Aksi</th>
+              <th className="px-4 py-3 font-semibold">Nama</th>
+              <th className="px-4 py-3 font-semibold">Harga</th>
+              <th className="px-4 py-3 font-semibold">Stok</th>
+              <th className="px-4 py-3 font-semibold">Unggulan</th>
+              <th className="px-4 py-3 font-semibold">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -169,8 +169,8 @@ export default function AdminProductsPage() {
                   <td className="px-4 py-3">
                     <button
                       onClick={() => toggleFeatured(p.id, p.featured)}
-                      className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
-                        p.featured ? "bg-muted text-foreground" : "bg-muted text-muted-foreground hover:bg-muted"
+                      className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                        p.featured ? "bg-foreground text-white hover:bg-foreground/80" : "bg-muted text-muted-foreground hover:bg-border hover:text-foreground"
                       }`}
                     >
                       {p.featured ? "Ya" : "Tidak"}
