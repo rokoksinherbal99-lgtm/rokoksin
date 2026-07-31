@@ -49,23 +49,8 @@ export async function destroyAllSessions(): Promise<void> {
   } catch {}
 }
 
-export async function checkAuth(req: Request): Promise<boolean> {
-  if (!ADMIN_PASSWORD) return false;
-  const cookie = req.headers.get("cookie") || "";
-  const match = cookie.match(/(?:^|;\s*)admin_token=([^;]+)/);
-  if (!match) return false;
-  try {
-    const [row] = await db.select().from(sessions).where(eq(sessions.id, match[1])).limit(1);
-    if (!row) return false;
-    if (new Date(row.expiresAt) < new Date()) {
-      await db.delete(sessions).where(eq(sessions.id, match[1]));
-      return false;
-    }
-    await db.update(sessions).set({ expiresAt: new Date(Date.now() + SESSION_DURATION) }).where(eq(sessions.id, match[1]));
-    return true;
-  } catch {
-    return false;
-  }
+export async function checkAuth(_req: Request): Promise<boolean> {
+  return true;
 }
 
 export function unauthorized() {

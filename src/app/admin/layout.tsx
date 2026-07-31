@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Package, ShoppingBag, LayoutDashboard, LogOut, Menu, X, MessageSquareText, KeyRound, ExternalLink, Leaf } from "lucide-react";
+import { Package, ShoppingBag, LayoutDashboard, Menu, X, MessageSquareText, ExternalLink, Leaf } from "lucide-react";
 import { ToastProvider } from "@/components/Toast";
 
 function getTitle(pathname: string) {
@@ -12,39 +12,12 @@ function getTitle(pathname: string) {
   if (pathname.startsWith("/admin/products")) return "Produk";
   if (pathname.startsWith("/admin/orders")) return "Pesanan";
   if (pathname.startsWith("/admin/testimonials")) return "Testimoni";
-  if (pathname.startsWith("/admin/change-password")) return "Ganti Password";
   return "Dashboard";
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const pathname = usePathname();
-  const [authed, setAuthed] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setAuthed(false);
-    fetch("/api/admin/check")
-      .then((r) => {
-        if (r.ok) setAuthed(true);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [pathname]);
-
-  const logout = async () => {
-    try {
-      await fetch("/api/admin/logout", { method: "POST" });
-    } catch {}
-    setAuthed(false);
-    router.push("/admin");
-  };
-
-  if (loading) return <div className="flex min-h-screen items-center justify-center text-muted-foreground">Memuat...</div>;
-  if (!authed && pathname !== "/admin") { router.push("/admin"); return null; }
-  if (pathname === "/admin" && !authed) return <ToastProvider>{children}</ToastProvider>;
 
   const nav = [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -96,19 +69,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {nav.map((item) => navItem(item.href, item.label, item.icon))}
           </div>
         </div>
-        <div>
-          {sectionLabel("Pengaturan")}
-          <div className="space-y-1">
-            {navItem("/admin/change-password", "Ganti Password", KeyRound)}
-            <button
-              onClick={logout}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
-            >
-              <LogOut className="h-[18px] w-[18px]" />
-              <span className="flex-1 text-left">Logout</span>
-            </button>
-          </div>
-        </div>
       </nav>
 
       <div className="border-t border-border p-4">
@@ -153,12 +113,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               >
                 <ExternalLink className="h-3.5 w-3.5" /> Lihat Toko
               </Link>
-              <button
-                onClick={logout}
-                className="inline-flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-100"
-              >
-                <LogOut className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Logout</span>
-              </button>
             </div>
           </header>
 
