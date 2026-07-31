@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BookOpen, ArrowLeft, Leaf, Shield, Heart } from "lucide-react";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
 
 const ARTICLES = [
   {
@@ -139,8 +142,34 @@ export default async function JournalArticlePage({ params }: Props) {
 
   const Icon = article.icon;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    image: `${BASE_URL}/og-journal-${article.slug}.png`,
+    datePublished: "2026-07-10",
+    dateModified: "2026-07-10",
+    author: { "@type": "Organization", name: "Sin Herbal", url: BASE_URL },
+    publisher: { "@type": "Organization", name: "Sin Herbal", logo: { "@type": "ImageObject", url: `${BASE_URL}/favicon.ico` } },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}/journal/${article.slug}` },
+    inLanguage: "id-ID",
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: `${BASE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Jurnal", item: `${BASE_URL}/journal` },
+      { "@type": "ListItem", position: 3, name: article.title, item: `${BASE_URL}/journal/${article.slug}` },
+    ],
+  };
+
   return (
     <div>
+      <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <section className="relative overflow-hidden bg-gradient-to-b from-[#18181B] via-[#3F3F46] to-[#18181B] py-16">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#3F3F46]/30 blur-3xl" />

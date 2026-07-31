@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { BookOpen, Leaf, Shield, Heart, MessageCircle } from "lucide-react";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
 
 export const metadata: Metadata = {
   title: "Jurnal Herbal - Sin Herbal",
@@ -49,6 +52,14 @@ const ARTICLES = [
 export default function JournalPage() {
   return (
     <div>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Beranda", item: `${BASE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Jurnal", item: `${BASE_URL}/journal` },
+        ],
+      }} />
       <section className="relative overflow-hidden bg-gradient-to-b from-[#18181B] via-[#3F3F46] to-[#18181B] py-20">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#3F3F46]/30 blur-3xl" />

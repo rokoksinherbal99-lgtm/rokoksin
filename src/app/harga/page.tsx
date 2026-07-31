@@ -5,6 +5,9 @@ import { formatPrice } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Tag, Info } from "lucide-react";
 import Image from "next/image";
+import JsonLd from "@/components/JsonLd";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
 
 export const dynamic = "force-dynamic";
 
@@ -57,6 +60,14 @@ export default async function PriceListPage() {
 
   return (
     <div>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Beranda", item: `${BASE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Daftar Harga", item: `${BASE_URL}/harga` },
+        ],
+      }} />
       <section className="bg-gradient-to-b from-muted/50 to-background py-20">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-foreground to-muted-foreground shadow-lg shadow-foreground/5">

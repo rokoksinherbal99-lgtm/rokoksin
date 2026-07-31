@@ -7,6 +7,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Shield, Package, CheckCircle, Tag } from "lucide-react";
+import JsonLd from "@/components/JsonLd";
 
 const productTypes: Record<string, string> = {
   "Sin Platinum TSI": "SKT", "Sin Kujang Mas TSI": "SKT", "Sin Provost 19 TSI": "SKT",
@@ -67,14 +68,28 @@ export default async function ProductDetailPage({ params }: Props) {
       "@type": "Offer",
       price: product.price,
       priceCurrency: "IDR",
+      priceValidUntil: new Date(new Date().getFullYear() + 1, 11, 31).toISOString().slice(0, 10),
       availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
       url: `${BASE_URL}/products/${product.slug}`,
+      seller: { "@type": "Organization", name: "Sin Herbal" },
     },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: `${BASE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Produk", item: `${BASE_URL}/products` },
+      { "@type": "ListItem", position: 3, name: product.name, item: `${BASE_URL}/products/${product.slug}` },
+    ],
   };
 
   return (
     <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+    <JsonLd data={productJsonLd} />
+    <JsonLd data={breadcrumbJsonLd} />
     <div className="mx-auto max-w-6xl px-4 py-8">
       <nav className="mb-8 text-sm text-muted-foreground">
         <Link href="/" className="transition hover:text-foreground">Beranda</Link>

@@ -1,5 +1,8 @@
 import { Leaf, Shield, Star, CheckCircle, MessageCircle, Building2, Heart, Users } from "lucide-react";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
 
 export const metadata: Metadata = {
   title: "Tentang Kami - Cerita & Visi Sin Herbal",
@@ -9,6 +12,14 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Beranda", item: `${BASE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Tentang Kami", item: `${BASE_URL}/tentang-kami` },
+        ],
+      }} />
       <section className="relative overflow-hidden bg-gradient-to-b from-[#18181B] via-[#3F3F46] to-[#18181B] py-20">
         <div className="hero-blob -top-48 -right-48 h-96 w-96 bg-[#A1A1AA]/15" />
         <div className="hero-blob -bottom-48 -left-48 h-96 w-96 bg-[#71717A]/10" />
