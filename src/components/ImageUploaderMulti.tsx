@@ -51,6 +51,14 @@ export default function ImageUploaderMulti({ value, onChange }: Props) {
     commit(images.filter((_, idx) => idx !== i));
   }, [images, commit]);
 
+  const move = useCallback((i: number, dir: -1 | 1) => {
+    const j = i + dir;
+    if (j < 0 || j >= images.length) return;
+    const next = [...images];
+    [next[i], next[j]] = [next[j], next[i]];
+    commit(next);
+  }, [images, commit]);
+
   return (
     <div>
       <label className="mb-1 block text-sm font-medium text-foreground">Gambar Produk</label>
@@ -74,7 +82,7 @@ export default function ImageUploaderMulti({ value, onChange }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
             <p className="text-sm">Seret gambar ke sini atau klik untuk upload</p>
-            <p className="text-xs">Bisa lebih dari 1 gambar · PNG, JPG, WebP, SVG max 2MB per file</p>
+            <p className="text-xs">Bisa lebih dari 1 gambar · PNG, JPG, WebP, SVG max 2MB per file · arahkan kursor ke thumbnail untuk ubah urutan</p>
           </div>
         )}
         <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif" multiple onChange={(e) => { handleFiles(e.target.files); e.target.value = ""; }} className="hidden" />
@@ -86,8 +94,29 @@ export default function ImageUploaderMulti({ value, onChange }: Props) {
             <div key={i} className="group relative overflow-hidden rounded-lg border border-border bg-muted">
               <img src={src} alt={`Gambar ${i + 1}`} className="aspect-square w-full object-cover" />
               <span className="absolute left-1.5 top-1.5 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                {i + 1}
+                {i === 0 ? "Utama" : i + 1}
               </span>
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-gradient-to-t from-black/70 to-transparent p-1.5 opacity-0 transition group-hover:opacity-100">
+                <button
+                  type="button"
+                  disabled={i === 0}
+                  onClick={(e) => { e.stopPropagation(); move(i, -1); }}
+                  className="rounded-md bg-white/90 p-1 text-black shadow transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-30"
+                  aria-label={`Pindahkan gambar ${i + 1} ke kiri`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd"/></svg>
+                </button>
+                <span className="text-[10px] font-semibold text-white">{i + 1} / {images.length}</span>
+                <button
+                  type="button"
+                  disabled={i === images.length - 1}
+                  onClick={(e) => { e.stopPropagation(); move(i, 1); }}
+                  className="rounded-md bg-white/90 p-1 text-black shadow transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-30"
+                  aria-label={`Pindahkan gambar ${i + 1} ke kanan`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+                </button>
+              </div>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); remove(i); }}
