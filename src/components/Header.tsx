@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, Menu, X, Search, MessageCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
+import HeaderSearch from "./HeaderSearch";
 
 export default function Header() {
   const pathname = usePathname();
@@ -56,15 +57,7 @@ export default function Header() {
 
           {/* Desktop Search */}
           <div className="hidden max-w-md flex-1 items-center lg:flex">
-            <form action="/products" className="relative w-full">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={2} />
-              <input
-                type="search"
-                name="q"
-                placeholder="Cari produk..."
-                className="w-full rounded-full border border-input bg-card py-2 pl-10 pr-4 text-sm transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-            </form>
+            <HeaderSearch />
           </div>
 
           {/* Right Actions */}
@@ -113,15 +106,7 @@ export default function Header() {
         {/* Mobile search bar */}
         {searchOpen && (
           <div className="pb-4 lg:hidden animate-fade-in">
-            <form action="/products" className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={2} />
-              <input
-                type="search"
-                name="q"
-                placeholder="Cari produk..."
-                className="w-full rounded-full border border-input bg-card py-2.5 pl-10 pr-4 text-sm transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-            </form>
+            <HeaderSearch onSelect={() => setSearchOpen(false)} />
           </div>
         )}
       </div>
