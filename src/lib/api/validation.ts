@@ -31,6 +31,11 @@ export function validateImageUrl(url: string): boolean {
   if (url.length > MAX_IMAGES) return false;
   const trimmed = url.trim();
   if (trimmed === "") return true;
+  if (trimmed.startsWith("data:image/")) return true;
+  if (trimmed.startsWith("https://")) {
+    const host = new URL(trimmed).hostname;
+    if (host.endsWith(".public.blob.vercel-storage.com")) return true;
+  }
   return IMAGE_DOMAINS.some((d) => trimmed.startsWith(d));
 }
 
