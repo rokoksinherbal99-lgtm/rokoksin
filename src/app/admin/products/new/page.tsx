@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/Toast";
-import ImageUploader from "@/components/ImageUploader";
+import ImageUploaderMulti from "@/components/ImageUploaderMulti";
 
 interface Category {
   id: string; name: string;
@@ -103,7 +103,7 @@ export default function NewProductPage() {
           <label className="block text-sm font-medium text-foreground">Produsen</label>
           <input value={form.manufacturer} onChange={(e) => update("manufacturer", e.target.value)} className="mt-1 w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm outline-none transition focus:border-border focus:ring-2 focus:ring-ring/20" />
         </div>
-        <ImageUploader value={form.images} onChange={(val) => update("images", val)} />
+        <ImageUploaderMulti value={form.images} onChange={(val) => update("images", val)} />
         <div className="flex items-center gap-2">
           <input type="checkbox" checked={form.featured} onChange={(e) => update("featured", e.target.checked)} id="featured" className="rounded border-border text-foreground" />
           <label htmlFor="featured" className="text-sm font-medium text-foreground">Produk Unggulan</label>

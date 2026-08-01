@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { testimonials, products } from "@/db/schema";
 import { eq, desc } from "drizzle-orm";
+import { parseImages } from "@/lib/utils";
 
 export async function GET() {
   try {
@@ -10,7 +11,7 @@ export async function GET() {
       name: r.testimonials.name,
       text: r.testimonials.text,
       product: r.products?.name || null,
-      productImg: r.products?.images || null,
+      productImg: parseImages(r.products?.images)[0] || null,
       city: r.testimonials.city,
     }));
     return NextResponse.json(data);

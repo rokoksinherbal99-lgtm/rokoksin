@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { orders, orderItems, products } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { parseImages } from "@/lib/utils";
 
 export async function GET(
   _req: Request,
@@ -35,7 +36,12 @@ export async function GET(
       .leftJoin(products, eq(orderItems.productId, products.id))
       .where(eq(orderItems.orderId, id));
 
-    return NextResponse.json({ ...order, items });
+    const itemsParsed = items.map((it) => ({
+      ...it,
+      productImage: parseImages(it.productImage)[0] || null,
+    }));
+
+    return NextResponse.json({ ...order, items: itemsParsed });
   } catch (err) {
     console.error("Order fetch error:", err);
     return NextResponse.json({ error: "Gagal memuat pesanan" }, { status: 500 });

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MessageCircle, ArrowRight, Heart } from "lucide-react";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, parseImages } from "@/lib/utils";
 import { useState } from "react";
 
 interface ProductCardProps {
@@ -19,7 +19,7 @@ const placeholders = ["/images/product-1.svg", "/images/product-2.svg", "/images
 const defaultImg = (key: string) => placeholders[Math.abs(key.split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)) % placeholders.length];
 
 export default function ProductCard({ id, name, slug, price, image, stock }: ProductCardProps) {
-  const [imgSrc, setImgSrc] = useState(image || defaultImg(id));
+  const [imgSrc, setImgSrc] = useState(parseImages(image)[0] || defaultImg(id));
   const [liked, setLiked] = useState(false);
 
   return (

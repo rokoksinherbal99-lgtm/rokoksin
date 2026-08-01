@@ -7,6 +7,7 @@ import { sanitize } from "@/lib/api/validation";
 import { checkCSRF } from "@/lib/api/security";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { logTestimonialCreate, logTestimonialUpdate, logTestimonialDelete } from "@/lib/api/audit";
+import { parseImages } from "@/lib/utils";
 
 export async function GET(req: Request) {
   if (!await checkAuth(req)) return unauthorized();
@@ -15,7 +16,7 @@ export async function GET(req: Request) {
     const data = rows.map((r) => ({
       ...r.testimonials,
       productName: r.products?.name || null,
-      productImage: r.products?.images || null,
+      productImage: parseImages(r.products?.images)[0] || null,
     }));
     return NextResponse.json(data);
   } catch (err) {

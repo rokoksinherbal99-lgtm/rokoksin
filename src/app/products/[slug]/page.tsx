@@ -1,11 +1,10 @@
 import { db } from "@/db";
 import { products, categories } from "@/db/schema";
 import { eq, and, ne, asc } from "drizzle-orm";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, parseImages } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Shield, Package, CheckCircle, Tag } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 
@@ -22,6 +21,7 @@ const productTypes: Record<string, string> = {
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
 import AddToCartButton from "./add-to-cart-button";
 import ProductCard from "@/components/ProductCard";
+import ProductGallery from "@/components/ProductGallery";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -31,13 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const [product] = await db.select().from(products).where(eq(products.slug, slug)).limit(1);
   if (!product) return {};
+  const images = parseImages(product.images);
   return {
     title: product.name,
     description: product.description,
     openGraph: {
       title: product.name,
       description: product.description,
-      images: [product.images],
+      images: images.length > 0 ? images.slice(0, 1) : undefined,
     },
   };
 }
@@ -47,6 +48,7 @@ export default async function ProductDetailPage({ params }: Props) {
   const [row] = await db.select().from(products).where(eq(products.slug, slug)).leftJoin(categories, eq(products.categoryId, categories.id)).limit(1);
   if (!row || !row.categories) notFound();
   const product = { ...row.products, category: row.categories };
+  const productImages = parseImages(product.images);
 
   const related = await db.select().from(products)
     .leftJoin(categories, eq(products.categoryId, categories.id))
@@ -59,7 +61,7 @@ export default async function ProductDetailPage({ params }: Props) {
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.images,
+    image: productImages.length > 0 ? productImages[0] : undefined,
     sku: product.id,
     mpn: product.id,
     brand: { "@type": "Brand", name: "Sin Herbal" },
@@ -100,19 +102,7 @@ export default async function ProductDetailPage({ params }: Props) {
       </nav>
 
       <div className="grid gap-10 md:grid-cols-2">
-        <div className="group relative">
-          <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted shadow-sm">
-            <Image
-              src={product.images}
-              alt={product.name}
-              fill
-              unoptimized
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              priority
-            />
-          </div>
-        </div>
+        <ProductGallery images={productImages} name={product.name} />
         <div className="flex flex-col">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-secondary px-3 py-1 text-xs font-semibold text-foreground">
@@ -173,7 +163,7 @@ export default async function ProductDetailPage({ params }: Props) {
             name={product.name}
             slug={product.slug}
             price={product.price}
-            image={product.images}
+            image={productImages[0] || ""}
             disabled={product.stock < 1}
           />
         </div>
@@ -193,7 +183,7 @@ export default async function ProductDetailPage({ params }: Props) {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">
             {related.map((r) => (
-              <ProductCard key={r.products.id} id={r.products.id} name={r.products.name} slug={r.products.slug} price={r.products.price} image={r.products.images} stock={r.products.stock} />
+              <ProductCard key={r.products.id} id={r.products.id} name={r.products.name} slug={r.products.slug} price={r.products.price}             image={parseImages(r.products.images)[0] || ""} stock={r.products.stock} />
             ))}
           </div>
         </section></>)}

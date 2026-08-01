@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { products, categories } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, parseImages } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Tag, Info } from "lucide-react";
 import Image from "next/image";
@@ -55,7 +55,7 @@ export default async function PriceListPage() {
   for (const r of rows) {
     const catName = r.categories?.name || "Lainnya";
     if (!grouped[catName]) grouped[catName] = { category: catName, items: [] };
-    grouped[catName].items.push({ name: r.products.name, type: productTypes[r.products.name] || "-", price: r.products.price, image: r.products.images, slug: r.products.slug });
+    grouped[catName].items.push({ name: r.products.name, type: productTypes[r.products.name] || "-", price: r.products.price, image: parseImages(r.products.images)[0] || "", slug: r.products.slug });
   }
 
   return (

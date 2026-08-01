@@ -39,6 +39,14 @@ export function validateImageUrl(url: string): boolean {
   return IMAGE_DOMAINS.some((d) => trimmed.startsWith(d));
 }
 
+function safeParseJsonArray(raw: string): string[] {
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed.filter((x) => typeof x === "string");
+  } catch {}
+  return [];
+}
+
 export interface ProductValidation {
   clean: Record<string, unknown>;
   errors: string[];
@@ -97,10 +105,23 @@ export function validateProductInput(body: Record<string, unknown>): ProductVali
   if (body.images !== undefined) {
     if (typeof body.images !== "string") {
       errors.push("Gambar tidak valid");
-    } else if (!validateImageUrl(body.images)) {
-      errors.push("URL gambar tidak dari sumber yang diizinkan");
     } else {
-      clean.images = body.images.trim();
+      const raw = body.images.trim();
+      if (raw === "") {
+        clean.images = "";
+      } else {
+        const urls = raw.startsWith("[") ? safeParseJsonArray(raw) : [raw];
+        if (urls.length === 0) {
+          errors.push("Gambar tidak valid");
+        } else {
+          const invalid = urls.find((u) => !validateImageUrl(u));
+          if (invalid) {
+            errors.push("URL gambar tidak dari sumber yang diizinkan");
+          } else {
+            clean.images = JSON.stringify(urls.map((u) => u.trim()).filter(Boolean));
+          }
+        }
+      }
     }
   }
 
