@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { products } from "@/db/schema";
+import { ARTICLES } from "@/lib/journal";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
 
@@ -21,10 +22,7 @@ export async function GET() {
       { loc: "/transparansi", priority: "0.3", changefreq: "monthly" },
       { loc: "/ritual", priority: "0.3", changefreq: "monthly" },
       { loc: "/journal", priority: "0.6", changefreq: "weekly" },
-      { loc: "/journal/manfaat-rokok-herbal", priority: "0.5", changefreq: "monthly" },
-      { loc: "/journal/cara-berhenti-merokok-alami", priority: "0.5", changefreq: "monthly" },
-      { loc: "/journal/kopi-herbal-nusantara", priority: "0.5", changefreq: "monthly" },
-      { loc: "/journal/legalitas-produk-herbal", priority: "0.5", changefreq: "monthly" },
+      ...ARTICLES.map((a) => ({ loc: `/journal/${a.slug}`, priority: "0.6" as const, changefreq: "weekly" as const })),
     ];
 
     const urls = [

@@ -1,53 +1,24 @@
 import Link from "next/link";
-import { BookOpen, Leaf, Shield, Heart, MessageCircle } from "lucide-react";
+import { BookOpen, Leaf, Shield, Heart, MessageCircle, CheckCircle, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import { ARTICLES } from "@/lib/journal";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://rokoksin.vercel.app";
+
+const ICONS: Record<string, any> = {
+  leaf: Leaf,
+  heart: Heart,
+  bookopen: BookOpen,
+  shield: Shield,
+  checkcircle: CheckCircle,
+  sparkles: Sparkles,
+};
 
 export const metadata: Metadata = {
   title: "Jurnal Herbal - Sin Herbal",
   description: "Artikel dan informasi seputar rokok herbal, gaya hidup sehat alami, dan tips berhenti merokok dari Sin Herbal.",
 };
-
-const ARTICLES = [
-  {
-    slug: "manfaat-rokok-herbal",
-    title: "Manfaat Rokok Herbal bagi Kesehatan",
-    excerpt: "Rokok herbal menjadi alternatif bagi mereka yang ingin mengurangi dampak buruk rokok tembakau. Berikut manfaat dan kandungannya.",
-    icon: Leaf,
-    category: "Rokok Herbal",
-    date: "10 Juli 2026",
-    readTime: "5 menit",
-  },
-  {
-    slug: "cara-berhenti-merokok-alami",
-    title: "7 Cara Berhenti Merokok secara Alami",
-    excerpt: "Ingin berhenti merokok? Coba 7 cara alami ini yang bisa membantu mengurangi kecanduan nikotin secara bertahap.",
-    icon: Heart,
-    category: "Gaya Hidup",
-    date: "8 Juli 2026",
-    readTime: "7 menit",
-  },
-  {
-    slug: "kopi-herbal-nusantara",
-    title: "Mengenal Kopi Herbal Nusantara dan Khasiatnya",
-    excerpt: "Dari jahe hingga madu, Indonesia kaya akan bahan kopi herbal. Simak khasiat dan cara menikmatinya.",
-    icon: BookOpen,
-    category: "Kopi Herbal",
-    date: "5 Juli 2026",
-    readTime: "6 menit",
-  },
-  {
-    slug: "legalitas-produk-herbal",
-    title: "Legalitas Produk Herbal di Indonesia",
-    excerpt: "Pentingnya memilih produk herbal yang terdaftar resmi dan memiliki izin edar. Panduan lengkap untuk konsumen cerdas.",
-    icon: Shield,
-    category: "Edukasi",
-    date: "3 Juli 2026",
-    readTime: "4 menit",
-  },
-];
 
 export default function JournalPage() {
   return (
@@ -80,8 +51,8 @@ export default function JournalPage() {
       <section className="py-16">
         <div className="mx-auto max-w-4xl px-4">
           <div className="grid gap-6 md:grid-cols-2">
-            {ARTICLES.map((article, i) => {
-              const Icon = article.icon;
+            {ARTICLES.map((article) => {
+              const Icon = ICONS[article.icon];
               return (
                 <Link
                   key={article.slug}
